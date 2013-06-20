@@ -20,7 +20,7 @@ public class Startseite extends Fragment {
 		// attachToRoot = false, weil die Verwaltung des Fragments durch die Activity erfolgt
 		return inflater.inflate(R.layout.startseite, container, false);
 	}
-
+	
 	@Override
 	// Nur aufgerufen, falls setHasOptionsMenu(true) in onCreateView() aufgerufen wird
 	public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {

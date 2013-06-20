@@ -1,12 +1,12 @@
 package de.shop.ui.kunde;
 
 import static de.shop.util.Constants.KUNDE_KEY;
-
 import android.app.Activity;
 import android.app.Fragment;
 import android.app.SearchManager;
 import android.content.Context;
 import android.os.Bundle;
+import android.text.format.DateFormat;
 import android.util.Log;
 import android.view.GestureDetector;
 import android.view.GestureDetector.OnGestureListener;
@@ -18,9 +18,12 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnTouchListener;
 import android.view.ViewGroup;
+import android.widget.CheckBox;
+import android.widget.RadioButton;
 import android.widget.SearchView;
+import android.widget.Spinner;
 import android.widget.TextView;
-
+import android.widget.ToggleButton;
 import de.shop.R;
 import de.shop.data.Kunde;
 import de.shop.ui.main.Prefs;
@@ -46,17 +49,105 @@ public class KundeStammdaten extends Fragment implements OnTouchListener {
 	
 	@Override
 	public void onViewCreated(View view, Bundle savedInstanceState) {
-		final TextView txtId = (TextView) view.findViewById(R.id.kunde_id);
-    	txtId.setText(kunde.id.toString());
-    	
-    	final TextView txtName = (TextView) view.findViewById(R.id.name_txt);
-    	txtName.setText(kunde.name);
+		fillValues(view);
     	
     	final Activity activity = getActivity();
 	    final OnGestureListener onGestureListener = new WischenListener(activity);
 	    gestureDetector = new GestureDetector(activity, onGestureListener);  // Context und OnGestureListener als Argumente
 	    view.setOnTouchListener(this);
     }
+	
+	private void fillValues(View view) {
+		final TextView txtId = (TextView) view.findViewById(R.id.kunde_id);
+    	txtId.setText(kunde.id.toString());
+    	
+    	final TextView txtNachname = (TextView) view.findViewById(R.id.nachname_txt);
+    	txtNachname.setText(kunde.nachname);
+    	
+    	final TextView txtVorname = (TextView) view.findViewById(R.id.vorname);
+    	txtVorname.setText(kunde.vorname);
+    	
+    	final TextView txtEmail = (TextView) view.findViewById(R.id.email);
+    	txtEmail.setText(kunde.email);
+    	
+    	final TextView txtPlz = (TextView) view.findViewById(R.id.plz);
+    	txtPlz.setText(kunde.adresse.plz);
+    	
+    	final TextView txtOrt = (TextView) view.findViewById(R.id.ort);
+    	txtOrt.setText(kunde.adresse.ort);
+    	
+    	final TextView txtStrasse = (TextView) view.findViewById(R.id.strasse);
+    	txtStrasse.setText(kunde.adresse.strasse);
+    	
+    	if (kunde.adresse.hausnr != null && !kunde.adresse.hausnr.isEmpty()) {
+	    	final TextView txtHausnr = (TextView) view.findViewById(R.id.hausnr);
+	    	txtHausnr.setText(kunde.adresse.hausnr);
+    	}
+    	
+    	final TextView txtSeit = (TextView) view.findViewById(R.id.seit);
+		final String seitStr = DateFormat.getDateFormat(view.getContext()).format(kunde.seit);
+    	txtSeit.setText(seitStr);
+    	
+    	final ToggleButton tglNewsletter = (ToggleButton) view.findViewById(R.id.newsletter);
+    	tglNewsletter.setChecked(kunde.newsletter);
+    	
+    	final RadioButton rbMaennlich = (RadioButton) view.findViewById(R.id.maennlich);
+    	final RadioButton rbWeiblich = (RadioButton) view.findViewById(R.id.weiblich);
+    	final Spinner spFamilienstand = (Spinner) view.findViewById(R.id.familienstand);
+    	final CheckBox cbHobbiesSport = (CheckBox) view.findViewById(R.id.sport);
+    	final CheckBox cbHobbiesLesen = (CheckBox) view.findViewById(R.id.lesen);
+    	final CheckBox cbHobbiesReisen = (CheckBox) view.findViewById(R.id.reisen);
+    	
+//    	if (kunde.getClass().equals(Privatkunde.class)) {
+//    		final Privatkunde privatkunde = (Privatkunde) kunde;
+//    		
+//	    	if (privatkunde.geschlecht != null) {
+//		    	switch (privatkunde.geschlecht) {
+//			    	case MAENNLICH:
+//			        	rbMaennlich.setChecked(true);
+//				    	break;
+//				    	
+//			    	case WEIBLICH:
+//			        	rbWeiblich.setChecked(true);
+//				    	break;
+//				    	
+//				    default:
+//		    	}
+//	    	}
+//	    	
+//	    	if (privatkunde.familienstand != null) {
+//	    		spFamilienstand.setSelection(privatkunde.familienstand.value());
+//	    	}
+//	    	
+//	    	if (privatkunde.hobbies != null) {
+//		    	for (HobbyType h : privatkunde.hobbies) {
+//		    		switch (h) {
+//		    			case SPORT: 
+//		    		    	cbHobbiesSport.setChecked(true);
+//		    		    	break;
+//		    		    	
+//		    			case LESEN: 
+//		    		    	cbHobbiesLesen.setChecked(true);
+//		    		    	break;
+//		    		    	
+//		    			case REISEN:
+//		    		    	cbHobbiesReisen.setChecked(true);
+//		    		    	break;
+//		    		    	
+//		    		    default:
+//		    		}
+//		    	}
+//	    	}
+//    	}
+//    	else {
+//    		rbMaennlich.setEnabled(false);
+//    		rbWeiblich.setEnabled(false);
+//    		spFamilienstand.setEnabled(false);
+//    		cbHobbiesSport.setEnabled(false);
+//    		cbHobbiesLesen.setEnabled(false);
+//    		cbHobbiesReisen.setEnabled(false);
+//    	}
+	}
 
 	@Override
 	// http://developer.android.com/guide/topics/ui/actionbar.html#ChoosingActionItems :
@@ -77,22 +168,22 @@ public class KundeStammdaten extends Fragment implements OnTouchListener {
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
 		switch (item.getItemId()) {
-			case R.id.edit:
-				// Evtl. vorhandene Tabs der ACTIVITY loeschen
-		    	getActivity().getActionBar().removeAllTabs();
-		    	
-				final Bundle args = new Bundle(1);
-				args.putSerializable(KUNDE_KEY, kunde);
-				
-				final Fragment neuesFragment = new KundeEdit();
-				neuesFragment.setArguments(args);
-				
-				// Kein Name (null) fuer die Transaktion, da die Klasse BackStageEntry nicht verwendet wird
-				getFragmentManager().beginTransaction()
-				                    .replace(R.id.details, neuesFragment)
-				                    .addToBackStack(null)  
-				                    .commit();
-				return true;
+//			case R.id.edit:
+//				// Evtl. vorhandene Tabs der ACTIVITY loeschen
+//		    	getActivity().getActionBar().removeAllTabs();
+//		    	
+//				final Bundle args = new Bundle(1);
+//				args.putSerializable(KUNDE_KEY, kunde);
+//				
+//				final Fragment neuesFragment = new KundeEdit();
+//				neuesFragment.setArguments(args);
+//				
+//				// Kein Name (null) fuer die Transaktion, da die Klasse BackStageEntry nicht verwendet wird
+//				getFragmentManager().beginTransaction()
+//				                    .replace(R.id.details, neuesFragment)
+//				                    .addToBackStack(null)  
+//				                    .commit();
+//				return true;
 				
 			case R.id.einstellungen:
 				getFragmentManager().beginTransaction()

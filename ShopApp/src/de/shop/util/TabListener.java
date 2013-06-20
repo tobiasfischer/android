@@ -13,7 +13,7 @@ public class TabListener<T extends Fragment> implements ActionBar.TabListener {
     private final Activity activity;
     private final String classnameFragment;
     private final Bundle args;
-    
+
 	private Fragment fragment;
 
     public TabListener(Activity activity, Class<T> clazz, Bundle args) {
@@ -50,6 +50,6 @@ public class TabListener<T extends Fragment> implements ActionBar.TabListener {
 	
 	@Override
 	public void onTabReselected(Tab tab, FragmentTransaction ft) {
-		// Erneutes "select" des bereits selektierten Fragments: keine weitere Aktivitaet noetig		
+		// Erneutes Antippen des aktuell angetippten Fragments: keine weitere Aktivitaet noetig		
 	}
 }

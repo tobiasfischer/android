@@ -3,7 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:baselineAligned="false"
-    tools:context=".ui.main.Main" >
+    tools:context=".ui.Main" >
 
 	<!-- Fragmente gibt es erst ab Honeycomb bzw. Version 3.0 bzw. API Level 11 -->
 	

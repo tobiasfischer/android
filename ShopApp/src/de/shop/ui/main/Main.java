@@ -1,5 +1,7 @@
 package de.shop.ui.main;
 
+import static android.widget.Toast.LENGTH_LONG;
+import static de.shop.ui.main.Prefs.mock;
 import static de.shop.util.Constants.KUNDE_KEY;
 
 import android.app.Activity;
@@ -11,6 +13,7 @@ import android.content.ServiceConnection;
 import android.os.Bundle;
 import android.os.IBinder;
 import android.util.Log;
+import android.widget.Toast;
 
 import de.shop.R;
 import de.shop.data.Kunde;
@@ -30,6 +33,7 @@ public class Main extends Activity {
 	private ServiceConnection kundeServiceConnection = new ServiceConnection() {
 		@Override
 		public void onServiceConnected(ComponentName name, IBinder serviceBinder) {
+			Log.v(LOG_TAG, "onServiceConnected() fuer KundeServiceBinder");
 			kundeServiceBinder = (KundeServiceBinder) serviceBinder;
 		}
 
@@ -42,6 +46,7 @@ public class Main extends Activity {
 	private ServiceConnection bestellungServiceConnection = new ServiceConnection() {
 		@Override
 		public void onServiceConnected(ComponentName name, IBinder serviceBinder) {
+			Log.v(LOG_TAG, "onServiceConnected() fuer BestellungServiceBinder");
 			bestellungServiceBinder = (BestellungServiceBinder) serviceBinder;
 		}
 
@@ -84,12 +89,16 @@ public class Main extends Activity {
         getFragmentManager().beginTransaction()
                             .add(R.id.details, detailsFragment)
                             .commit();
+        
+    	if (mock) {
+    		Toast.makeText(this, R.string.s_mock, LENGTH_LONG).show();
+    	}
     }
     
     @Override
 	public void onStart() {
 		super.onStart();
-
+		
 		Intent intent = new Intent(this, KundeService.class);
 		bindService(intent, kundeServiceConnection, Context.BIND_AUTO_CREATE);
 		

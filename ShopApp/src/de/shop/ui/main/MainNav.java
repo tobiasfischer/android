@@ -23,7 +23,7 @@ import android.widget.SimpleAdapter;
 import de.shop.R;
 import de.shop.ui.bestellung.BestellungenNeu;
 import de.shop.ui.kunde.KundeSucheId;
-import de.shop.ui.kunde.KundenSucheName;
+import de.shop.ui.kunde.KundenSucheNachname;
 
 public class MainNav extends ListFragment implements OnItemClickListener, OnMenuItemClickListener  {
 	public enum NavType {
@@ -144,9 +144,13 @@ public class MainNav extends ListFragment implements OnItemClickListener, OnMenu
 				neuesFragment = new KundeSucheId();
 				break;
 				
-			case R.id.kunden_suche_name:
-				neuesFragment = new KundenSucheName();
+			case R.id.kunden_suche_nachname:
+				neuesFragment = new KundenSucheNachname();
 				break;
+
+//			case R.id.kunden_delete:
+//				neuesFragment = new KundeDelete();
+//				break;
 
 			case R.id.bestellungen_neu:
 				neuesFragment = new BestellungenNeu();

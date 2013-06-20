@@ -1,7 +1,7 @@
 package de.shop.ui.kunde;
 
-import static de.shop.util.Constants.KUNDE_KEY;
 import static de.shop.util.Constants.KUNDEN_KEY;
+import static de.shop.util.Constants.KUNDE_KEY;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -19,7 +19,6 @@ import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListAdapter;
 import android.widget.SimpleAdapter;
-
 import de.shop.R;
 import de.shop.data.Kunde;
 
@@ -27,9 +26,9 @@ public class KundenListeNav extends ListFragment implements OnItemClickListener 
 	private static final String LOG_TAG = KundenListeNav.class.getSimpleName();
 	
 	private static final String ID = "id";
-	private static final String NAME = "name";
-	private static final String[] FROM = { ID, NAME};
-	private static final int[] TO = { R.id.kunde_id, R.id.name_txt };
+	private static final String NACHNAME = "nachname";
+	private static final String[] FROM = { ID, NACHNAME};
+	private static final int[] TO = { R.id.kunde_id, R.id.nachname_txt };
 	
 	private List<Kunde> kunden;
 	private List<Map<String, Object>> kundenItems;
@@ -41,8 +40,8 @@ public class KundenListeNav extends ListFragment implements OnItemClickListener 
         kunden = (List<Kunde>) getActivity().getIntent().getExtras().get(KUNDEN_KEY);
         Log.d(LOG_TAG, kunden.toString());
         
-		final ListAdapter adapter = createListAdapter();
-        setListAdapter(adapter);
+		final ListAdapter listAdapter = createListAdapter();
+        setListAdapter(listAdapter);
         
 		return super.onCreateView(inflater, container, savedInstanceState);
 	}
@@ -52,7 +51,7 @@ public class KundenListeNav extends ListFragment implements OnItemClickListener 
 		for (Kunde k : kunden) {
     		final Map<String, Object> kundeItem = new HashMap<String, Object>(2, 1); // max 2 Eintraege, bis zu 100 % Fuellung
     		kundeItem.put(ID, k.id);
-    		kundeItem.put(NAME, k.name);
+    		kundeItem.put(NACHNAME, k.nachname);
     		kundenItems.add(kundeItem);        	
         }
 		
