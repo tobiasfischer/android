@@ -24,6 +24,8 @@ public class Kunde implements JsonMappable, Serializable {
 	public String vorname;
 	public String email;
 	public String telefonnummer;
+	public Adresse lieferadresse;
+	public Adresse rechnungsadresse;
 	
 	
 	protected JsonObjectBuilder getJsonObjectBuilder() {
@@ -32,8 +34,9 @@ public class Kunde implements JsonMappable, Serializable {
 			                     .add("version", version)
 			                     .add("nachname", nachname)
 			                     .add("vorname", vorname)
-			                     .add("email", email);
-			                     //.add("adresse", adresse.getJsonBuilderFactory())
+			                     .add("email", email)
+			                     .add("lieferadresse", lieferadresse.getJsonBuilderFactory())
+			                     .add("rechnungsadresse", rechnungsadresse.getJsonBuilderFactory());
 			                     //.add("seit", new SimpleDateFormat(DATE_FORMAT, Locale.getDefault()).format(seit))
 	}
 	
@@ -48,8 +51,12 @@ public class Kunde implements JsonMappable, Serializable {
 		nachname = jsonObject.getString("nachname");
 		vorname = jsonObject.getString("vorname");
 		email = jsonObject.getString("email");
-		//adresse = new Adresse();
-		//adresse.fromJsonObject(jsonObject.getJsonObject("adresse"));
+		lieferadresse = new Adresse();
+		lieferadresse.fromJsonObject(jsonObject.getJsonObject("lieferadresse"));
+		rechnungsadresse = new Adresse();
+		rechnungsadresse.fromJsonObject(jsonObject.getJsonObject("rechnungsadresse"));
+		
+		
 		/*try {
 			seit = new SimpleDateFormat(DATE_FORMAT, Locale.getDefault()).parse(jsonObject.getString("seit"));
 		}

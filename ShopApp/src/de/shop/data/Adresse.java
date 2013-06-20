@@ -15,18 +15,18 @@ public class Adresse implements JsonMappable, Serializable {
 	public String plz;
 	public String ort;
 	public String strasse;
-	public String hausnr;
+	public String land;
 
 	public Adresse() {
 		super();
 	}
 	
-	public Adresse(String plz, String ort, String strasse, String hausnr) {
+	public Adresse(String plz, String ort, String strasse, String land) {
 		super();
 		this.plz = plz;
 		this.ort = ort;
 		this.strasse = strasse;
-		this.hausnr = hausnr;
+		this.land = land;
 	}
 	
 	// fuer AbstractKunde.toJsonObject()
@@ -36,7 +36,7 @@ public class Adresse implements JsonMappable, Serializable {
 		                         .add("plz", plz)
 		                         .add("ort", ort)
 		                         .add("strasse", strasse)
-		                         .add("hausnr", hausnr);
+		                         .add("land", land);
 	}
 	
 	@Override
@@ -50,7 +50,7 @@ public class Adresse implements JsonMappable, Serializable {
 		plz = jsonObject.getString("plz");
 		ort = jsonObject.getString("ort");
 		strasse = jsonObject.getString("strasse");
-		hausnr = jsonObject.getString("hausnr");
+		land = jsonObject.getString("land");
 	}
 	
 	@Override
@@ -62,7 +62,7 @@ public class Adresse implements JsonMappable, Serializable {
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + ((hausnr == null) ? 0 : hausnr.hashCode());
+		result = prime * result + ((land == null) ? 0 : land.hashCode());
 		result = prime * result + ((ort == null) ? 0 : ort.hashCode());
 		result = prime * result + ((plz == null) ? 0 : plz.hashCode());
 		result = prime * result + ((strasse == null) ? 0 : strasse.hashCode());
@@ -78,10 +78,10 @@ public class Adresse implements JsonMappable, Serializable {
 		if (getClass() != obj.getClass())
 			return false;
 		Adresse other = (Adresse) obj;
-		if (hausnr == null) {
-			if (other.hausnr != null)
+		if (land == null) {
+			if (other.land != null)
 				return false;
-		} else if (!hausnr.equals(other.hausnr))
+		} else if (!land.equals(other.land))
 			return false;
 		if (ort == null) {
 			if (other.ort != null)
@@ -104,6 +104,6 @@ public class Adresse implements JsonMappable, Serializable {
 	@Override
 	public String toString() {
 		return "Adresse [plz=" + plz + ", ort=" + ort + ", strasse=" + strasse
-				+ ", hausnr=" + hausnr + "]";
+				+ ", hausnr=" + land + "]";
 	}
 }

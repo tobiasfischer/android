@@ -72,19 +72,24 @@ public class KundeStammdaten extends Fragment implements OnTouchListener {
     	final TextView txtEmail = (TextView) view.findViewById(R.id.email);
     	txtEmail.setText(kunde.email);
     	
-//    	final TextView txtPlz = (TextView) view.findViewById(R.id.plz);
-//    	txtPlz.setText(kunde.adresse.plz);
-//    	
-//    	final TextView txtOrt = (TextView) view.findViewById(R.id.ort);
-//    	txtOrt.setText(kunde.adresse.ort);
-//    	
-//    	final TextView txtStrasse = (TextView) view.findViewById(R.id.strasse);
-//    	txtStrasse.setText(kunde.adresse.strasse);
-//    	
-//    	if (kunde.adresse.hausnr != null && !kunde.adresse.hausnr.isEmpty()) {
-//	    	final TextView txtHausnr = (TextView) view.findViewById(R.id.hausnr);
-//	    	txtHausnr.setText(kunde.adresse.hausnr);
-//    	}
+    	final TextView txtLPlz = (TextView) view.findViewById(R.id.L_plz);
+    	txtLPlz.setText(kunde.lieferadresse.plz);
+    	
+    	final TextView txtLOrt = (TextView) view.findViewById(R.id.L_ort);
+    	txtLOrt.setText(kunde.lieferadresse.ort);
+    	
+    	final TextView txtLStrasse = (TextView) view.findViewById(R.id.L_strasse);
+    	txtLStrasse.setText(kunde.lieferadresse.strasse);
+    	
+    	final TextView txtRPlz = (TextView) view.findViewById(R.id.R_plz);
+    	txtRPlz.setText(kunde.rechnungsadresse.plz);
+    	
+    	final TextView txtROrt = (TextView) view.findViewById(R.id.R_ort);
+    	txtROrt.setText(kunde.rechnungsadresse.ort);
+    	
+    	final TextView txtRStrasse = (TextView) view.findViewById(R.id.R_strasse);
+    	txtRStrasse.setText(kunde.rechnungsadresse.strasse);
+    	
     	
 //    	final TextView txtSeit = (TextView) view.findViewById(R.id.seit);
 //		final String seitStr = DateFormat.getDateFormat(view.getContext()).format(kunde.seit);
