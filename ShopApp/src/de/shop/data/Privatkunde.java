@@ -11,7 +11,7 @@ import javax.json.JsonObject;
 import javax.json.JsonObjectBuilder;
 
 
-public class Kunde extends AbstractKunde  {
+public class Privatkunde extends AbstractKunde {
 	private static final long serialVersionUID = -3018823336715723505L;
 
 	public GeschlechtType geschlecht;
@@ -50,7 +50,7 @@ public class Kunde extends AbstractKunde  {
 	
 	@Override
 	public String toString() {
-		return "Kunde [" + super.toString() + ", geschlecht=" + geschlecht
+		return "Privatkunde [" + super.toString() + ", geschlecht=" + geschlecht
 				+ ", familienstand=" + familienstand + ", hobbies=" + hobbies + "]";
 	}
 }

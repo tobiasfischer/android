@@ -25,19 +25,21 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.ToggleButton;
 import de.shop.R;
-import de.shop.data.Kunde;
+import de.shop.data.AbstractKunde;
+import de.shop.data.HobbyType;
+import de.shop.data.Privatkunde;
 import de.shop.ui.main.Prefs;
 import de.shop.util.WischenListener;
 
 public class KundeStammdaten extends Fragment implements OnTouchListener {
 	private static final String LOG_TAG = KundeStammdaten.class.getSimpleName();
 	
-	private Kunde kunde;
+	private AbstractKunde kunde;
 	private GestureDetector gestureDetector;
 	
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        kunde = (Kunde) getArguments().get(KUNDE_KEY);
+        kunde = (AbstractKunde) getArguments().get(KUNDE_KEY);
         Log.d(LOG_TAG, kunde.toString());
 
         // Voraussetzung fuer onOptionsItemSelected()
@@ -98,55 +100,55 @@ public class KundeStammdaten extends Fragment implements OnTouchListener {
     	final CheckBox cbHobbiesLesen = (CheckBox) view.findViewById(R.id.lesen);
     	final CheckBox cbHobbiesReisen = (CheckBox) view.findViewById(R.id.reisen);
     	
-//    	if (kunde.getClass().equals(Privatkunde.class)) {
-//    		final Privatkunde privatkunde = (Privatkunde) kunde;
-//    		
-//	    	if (privatkunde.geschlecht != null) {
-//		    	switch (privatkunde.geschlecht) {
-//			    	case MAENNLICH:
-//			        	rbMaennlich.setChecked(true);
-//				    	break;
-//				    	
-//			    	case WEIBLICH:
-//			        	rbWeiblich.setChecked(true);
-//				    	break;
-//				    	
-//				    default:
-//		    	}
-//	    	}
-//	    	
-//	    	if (privatkunde.familienstand != null) {
-//	    		spFamilienstand.setSelection(privatkunde.familienstand.value());
-//	    	}
-//	    	
-//	    	if (privatkunde.hobbies != null) {
-//		    	for (HobbyType h : privatkunde.hobbies) {
-//		    		switch (h) {
-//		    			case SPORT: 
-//		    		    	cbHobbiesSport.setChecked(true);
-//		    		    	break;
-//		    		    	
-//		    			case LESEN: 
-//		    		    	cbHobbiesLesen.setChecked(true);
-//		    		    	break;
-//		    		    	
-//		    			case REISEN:
-//		    		    	cbHobbiesReisen.setChecked(true);
-//		    		    	break;
-//		    		    	
-//		    		    default:
-//		    		}
-//		    	}
-//	    	}
-//    	}
-//    	else {
-//    		rbMaennlich.setEnabled(false);
-//    		rbWeiblich.setEnabled(false);
-//    		spFamilienstand.setEnabled(false);
-//    		cbHobbiesSport.setEnabled(false);
-//    		cbHobbiesLesen.setEnabled(false);
-//    		cbHobbiesReisen.setEnabled(false);
-//    	}
+    	if (kunde.getClass().equals(Privatkunde.class)) {
+    		final Privatkunde privatkunde = (Privatkunde) kunde;
+    		
+	    	if (privatkunde.geschlecht != null) {
+		    	switch (privatkunde.geschlecht) {
+			    	case MAENNLICH:
+			        	rbMaennlich.setChecked(true);
+				    	break;
+				    	
+			    	case WEIBLICH:
+			        	rbWeiblich.setChecked(true);
+				    	break;
+				    	
+				    default:
+		    	}
+	    	}
+	    	
+	    	if (privatkunde.familienstand != null) {
+	    		spFamilienstand.setSelection(privatkunde.familienstand.value());
+	    	}
+	    	
+	    	if (privatkunde.hobbies != null) {
+		    	for (HobbyType h : privatkunde.hobbies) {
+		    		switch (h) {
+		    			case SPORT: 
+		    		    	cbHobbiesSport.setChecked(true);
+		    		    	break;
+		    		    	
+		    			case LESEN: 
+		    		    	cbHobbiesLesen.setChecked(true);
+		    		    	break;
+		    		    	
+		    			case REISEN:
+		    		    	cbHobbiesReisen.setChecked(true);
+		    		    	break;
+		    		    	
+		    		    default:
+		    		}
+		    	}
+	    	}
+    	}
+    	else {
+    		rbMaennlich.setEnabled(false);
+    		rbWeiblich.setEnabled(false);
+    		spFamilienstand.setEnabled(false);
+    		cbHobbiesSport.setEnabled(false);
+    		cbHobbiesLesen.setEnabled(false);
+    		cbHobbiesReisen.setEnabled(false);
+    	}
 	}
 
 	@Override
@@ -168,22 +170,22 @@ public class KundeStammdaten extends Fragment implements OnTouchListener {
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
 		switch (item.getItemId()) {
-//			case R.id.edit:
-//				// Evtl. vorhandene Tabs der ACTIVITY loeschen
-//		    	getActivity().getActionBar().removeAllTabs();
-//		    	
-//				final Bundle args = new Bundle(1);
-//				args.putSerializable(KUNDE_KEY, kunde);
-//				
-//				final Fragment neuesFragment = new KundeEdit();
-//				neuesFragment.setArguments(args);
-//				
-//				// Kein Name (null) fuer die Transaktion, da die Klasse BackStageEntry nicht verwendet wird
-//				getFragmentManager().beginTransaction()
-//				                    .replace(R.id.details, neuesFragment)
-//				                    .addToBackStack(null)  
-//				                    .commit();
-//				return true;
+			case R.id.edit:
+				// Evtl. vorhandene Tabs der ACTIVITY loeschen
+		    	getActivity().getActionBar().removeAllTabs();
+		    	
+				final Bundle args = new Bundle(1);
+				args.putSerializable(KUNDE_KEY, kunde);
+				
+				final Fragment neuesFragment = new KundeEdit();
+				neuesFragment.setArguments(args);
+				
+				// Kein Name (null) fuer die Transaktion, da die Klasse BackStageEntry nicht verwendet wird
+				getFragmentManager().beginTransaction()
+				                    .replace(R.id.details, neuesFragment)
+				                    .addToBackStack(null)  
+				                    .commit();
+				return true;
 				
 			case R.id.einstellungen:
 				getFragmentManager().beginTransaction()

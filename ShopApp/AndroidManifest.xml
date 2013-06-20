@@ -1,11 +1,15 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
 	package="de.shop"
+	android:name="de.shop.ShopApp"
 	android:versionCode="1"
 	android:versionName="1.0" >
 
 	<uses-sdk
 		android:minSdkVersion="17"
 		android:targetSdkVersion="17" />
+	
+	<uses-permission android:name="android.permission.INTERNET"/>
+	<uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
 	
 	<!-- Ansonsten: android.content.res.Resources$NotFoundException -->
 	<supports-screens android:requiresSmallestWidthDp="600"/>
@@ -14,6 +18,7 @@
 		android:icon="@drawable/ic_launcher"
 		android:label="@string/s_app_name"
 		android:theme="@style/AppTheme"
+		android:name="ShopApp"
 		android:allowBackup="true" >
 		
 		<activity
@@ -41,7 +46,7 @@
 			
 			<meta-data
             	android:name="android.app.default_searchable"
-            	android:value=".ui.kunde.SucheNameActivity" />
+            	android:value=".ui.kunde.SucheNachnameActivity" />
 		</activity>
 		
 		<activity
@@ -61,7 +66,7 @@
 		</activity>
 		
 		<activity
-			android:name=".ui.kunde.SucheNameActivity"
+			android:name=".ui.kunde.SucheNachnameActivity"
 			android:exported="false" >
 			
 			<!-- Activity als "searchable" deklarieren -->
@@ -73,7 +78,7 @@
 			<!-- Weitere Konfiguration fuer die Suche durch diese Activity -->
 			<meta-data
 	            android:name="android.app.searchable"
-	            android:resource="@xml/searchable_name" />
+	            android:resource="@xml/searchable_nachname" />
 		</activity>
 		
 		<!-- Local Services -->
@@ -82,6 +87,10 @@
 		
 		<service
 			android:name=".service.BestellungService" />
+		
+		<service
+			android:name=".service.NetworkService" />
+				
 	</application>
 
 </manifest>

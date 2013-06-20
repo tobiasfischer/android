@@ -1,21 +1,22 @@
 package de.shop.ui.kunde;
 
-import static android.view.inputmethod.EditorInfo.IME_NULL;
-import static de.shop.util.Constants.KUNDEN_KEY;
-import static java.net.HttpURLConnection.HTTP_NOT_FOUND;
+import static android.widget.Toast.LENGTH_LONG;
+import static java.net.HttpURLConnection.HTTP_CONFLICT;
+import static java.net.HttpURLConnection.HTTP_FORBIDDEN;
+import static java.net.HttpURLConnection.HTTP_NO_CONTENT;
+import static java.net.HttpURLConnection.HTTP_OK;
+import static java.net.HttpURLConnection.HTTP_UNAUTHORIZED;
 
 import java.util.Collections;
 import java.util.List;
-import java.util.concurrent.TimeoutException;
 
 import android.app.ActionBar;
+import android.app.AlertDialog;
 import android.app.Fragment;
 import android.content.Context;
-import android.content.Intent;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.text.TextUtils;
-import android.util.Log;
-import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -27,79 +28,39 @@ import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Filter;
 import android.widget.TextView;
-import android.widget.TextView.OnEditorActionListener;
+import android.widget.Toast;
 import de.shop.R;
-import de.shop.data.AbstractKunde;
 import de.shop.service.HttpResponse;
 import de.shop.ui.main.Main;
 import de.shop.ui.main.Prefs;
-import de.shop.util.InternalShopError;
+import de.shop.ui.main.Startseite;
 
-public class KundenSucheNachname extends Fragment implements OnClickListener, OnEditorActionListener {	
-	private static final String LOG_TAG = KundenSucheNachname.class.getSimpleName();
+public class KundeDelete extends Fragment implements OnClickListener {
 	
-	private AutoCompleteTextView nachnameTxt;
+	private AutoCompleteTextView kundeIdTxt;
 	
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 		setHasOptionsMenu(true);
 		// attachToRoot = false, weil die Verwaltung des Fragments durch die Activity erfolgt
-		return inflater.inflate(R.layout.kunden_suche_nachname, container, false);
+		return inflater.inflate(R.layout.kunde_delete, container, false);
 	}
 	
 	@Override
 	public void onViewCreated(View view, Bundle savedInstanceState) {
-		nachnameTxt = (AutoCompleteTextView) view.findViewById(R.id.nachname_auto);
-		final ArrayAdapter<String> adapter = new AutoCompleteNachnameAdapter(nachnameTxt.getContext());
-		nachnameTxt.setAdapter(adapter);
-		nachnameTxt.setOnEditorActionListener(this);
+		kundeIdTxt = (AutoCompleteTextView) view.findViewById(R.id.kunde_id_auto);
+		final ArrayAdapter<Long> adapter = new AutoCompleteIdAdapter(kundeIdTxt.getContext());
+    	kundeIdTxt.setAdapter(adapter);
     	
-		// KundenSucheNachname (this) ist gleichzeitig der Listener, wenn der Suchen-Button angeklickt wird
+		// KundeSucheId (this) ist gleichzeitig der Listener, wenn der Delete-Button angeklickt wird
 		// und implementiert deshalb die Methode onClick() unten
-    	view.findViewById(R.id.btn_suchen).setOnClickListener(this);
+    	view.findViewById(R.id.btn_delete).setOnClickListener(this);
     	
 	    // Evtl. vorhandene Tabs der ACTIVITY loeschen
     	final ActionBar actionBar = getActivity().getActionBar();
     	actionBar.setDisplayShowTitleEnabled(true);
     	actionBar.removeAllTabs();
     }
-	
-	@Override
-	// OnClickListener
-	public void onClick(View view) {
-		switch (view.getId()) {
-			case R.id.btn_suchen:
-				suchen(view);
-				break;
-				
-			default:
-				break;
-		}
-    }
-    
-	private void suchen(View view) {
-		final Context ctx = view.getContext();
-		
-		final String nachname = nachnameTxt.getText().toString();
-		if (TextUtils.isEmpty(nachname)) {
-			nachnameTxt.setError(getString(R.string.k_nachname_fehlt));
-    		return;
-    	}
-		final Main mainActivity = (Main) getActivity();
-		final HttpResponse<AbstractKunde> result = mainActivity.getKundeServiceBinder().sucheKundenByNachname(nachname, ctx);
-
-		if (result.responseCode == HTTP_NOT_FOUND) {
-			final String msg = getString(R.string.k_kunden_not_found, nachname);
-			nachnameTxt.setError(msg);
-			return;
-		}
-		
-		Log.d(LOG_TAG, result.toString());
-
-		final Intent intent = new Intent(mainActivity, KundenListe.class);
-		intent.putExtra(KUNDEN_KEY, result.resultList);
-		startActivity(intent);
-	}
 	
 	@Override
 	// Nur aufgerufen, falls setHasOptionsMenu(true) in onCreateView() aufgerufen wird
@@ -123,22 +84,64 @@ public class KundenSucheNachname extends Fragment implements OnClickListener, On
 		}
 	}
 	
-
-	@Override  // OnEditorActionListener
-	public boolean onEditorAction(TextView view, int actionId, KeyEvent event) {
-		if (actionId == R.id.ime_suchen || actionId == IME_NULL) {
-			suchen(view);
-			return true;
+	@Override
+	// OnClickListener
+	public void onClick(View view) {
+		switch (view.getId()) {
+			case R.id.btn_delete:
+				final String kundeIdStr = kundeIdTxt.getText().toString();
+				if (TextUtils.isEmpty(kundeIdStr)) {
+		    		Toast.makeText(view.getContext(), R.string.k_kundennr_fehlt, LENGTH_LONG).show();
+		    		return;
+		    	}
+				
+				final Context ctx = view.getContext();
+				final Long kundeId = Long.valueOf(kundeIdStr);
+				final Main mainActivity = (Main) getActivity();
+				final HttpResponse<Void> result = mainActivity.getKundeServiceBinder().deleteKunde(kundeId, ctx);
+				final int statuscode = result.responseCode;
+				if (statuscode != HTTP_NO_CONTENT && statuscode != HTTP_OK) {
+					String msg = null;
+					switch (statuscode) {
+						case HTTP_CONFLICT:
+							msg = result.content;
+							break;
+						case HTTP_UNAUTHORIZED:
+							msg = getString(R.string.s_error_prefs_login, kundeId);
+							break;
+						case HTTP_FORBIDDEN:
+							msg = getString(R.string.s_error_forbidden, kundeId);
+							break;
+					}
+					
+		    		final AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+		    		final DialogInterface.OnClickListener listener = new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int which) {}
+                    };
+		    		builder.setMessage(msg)
+		    		       .setNeutralButton(getString(R.string.s_ok), listener)
+		    		       .create()
+		    		       .show();
+		    		return;
+				}
+				
+				// Kein Name (null) fuer die Transaktion, da die Klasse BackStageEntry nicht verwendet wird
+				getFragmentManager().beginTransaction()
+				                    .replace(R.id.details, new Startseite())
+				                    .addToBackStack(null)
+				                    .commit();
+				break;
+				
+			default:
+				break;
 		}
-		
-		return false;
-	}
-
+    }
+	
     // Fuer die Verwendung von AutoCompleteTextView in der Methode onViewCreated()
-    private class AutoCompleteNachnameAdapter extends ArrayAdapter<String> {
+    private class AutoCompleteIdAdapter extends ArrayAdapter<Long> {
     	private LayoutInflater inflater;
      
-    	public AutoCompleteNachnameAdapter(Context ctx) {
+    	public AutoCompleteIdAdapter(Context ctx) {
     		super(ctx, -1);
     		inflater = LayoutInflater.from(ctx);
     	}
@@ -146,10 +149,11 @@ public class KundenSucheNachname extends Fragment implements OnClickListener, On
     	@Override
     	public View getView(int position, View convertView, ViewGroup parent) {
     		// TextView ist die Basisklasse von EditText und wiederum AutoCompleteTextView
-    		final TextView tv = convertView != null
-    				            ?  (TextView) convertView
-    		                    : (TextView) inflater.inflate(android.R.layout.simple_dropdown_item_1line, parent, false);
-    		tv.setText(String.valueOf(getItem(position)));
+    		final TextView tv = convertView == null
+    				            ? (TextView) inflater.inflate(android.R.layout.simple_dropdown_item_1line, parent, false)
+    				            : (TextView) convertView;
+     
+    		tv.setText(String.valueOf(getItem(position)));  // Long als String innerhalb der Vorschlagsliste
     		return tv;
     	}
      
@@ -158,53 +162,41 @@ public class KundenSucheNachname extends Fragment implements OnClickListener, On
     		// Filter ist eine abstrakte Klasse.
     		// Zu einer davon abgeleiteten ANONYMEN Klasse wird ein Objekt erzeugt
     		// Abstrakte Methoden muessen noch implementiert werden, und zwar HIER
-    		// performFiltering() wird durch Android in einem eigenen (Worker-) Thread aufgerufen
     		Filter filter = new Filter() {
     			@Override
     			protected FilterResults performFiltering(CharSequence constraint) {
-    				List<String> nachnameList = null;
+    				List<Long> idList = null;
     				if (constraint != null) {
     					// Liste der IDs, die den bisher eingegebenen Praefix (= constraint) enthalten
-    					nachnameList = sucheNachnamen((String) constraint);
+    					idList = sucheIds((String) constraint);
     				}
-    				if (nachnameList == null) {
+    				if (idList == null) {
     					// Leere Liste, falls keine IDs zum eingegebenen Praefix gefunden werden
-    					nachnameList = Collections.emptyList();
+    					idList = Collections.emptyList();
     				}
      
     				final FilterResults filterResults = new FilterResults();
-    				filterResults.values = nachnameList;
-    				filterResults.count = nachnameList.size();
+    				filterResults.values = idList;
+    				filterResults.count = idList.size();
      
     				return filterResults;
     			}
     			
-    	    	private List<String> sucheNachnamen(String nachnamePrefix) {
+    	    	private List<Long> sucheIds(String idPrefix) {
     	    		final Main mainActivity = (Main) getActivity();
-    				List<String> nachnamen = null;
-    				try {
-    					nachnamen = mainActivity.getKundeServiceBinder().sucheNachnamen(nachnamePrefix);
-    				}
-    				catch (InternalShopError e) {
-    					final Throwable t = e.getCause();
-    					if (t != null && t instanceof TimeoutException) {
-    						nachnamen = Collections.emptyList();
-    						Log.e(LOG_TAG, e.getMessage(), t);					
-    					}
-    					else {
-    						Log.e(LOG_TAG, e.getMessage(), e);
-    					}
-    				}
-    				return nachnamen;
+    				final List<Long> ids = mainActivity.getKundeServiceBinder().sucheIds(idPrefix);
+    				return ids;
     	    	}
      
     			@Override
     			protected void publishResults(CharSequence contraint, FilterResults results) {
     				clear();
     				@SuppressWarnings("unchecked")
-					final List<String> nachnameList = (List<String>) results.values;
+					final List<Long> idList = (List<Long>) results.values;
     				// Ermittelte IDs in die anzuzeigende Vorschlagsliste uebernehmen
-    				addAll(nachnameList);
+    				if (idList != null && !idList.isEmpty()) {
+    					addAll(idList);
+    				}
 
     				if (results.count > 0) {
     					notifyDataSetChanged();

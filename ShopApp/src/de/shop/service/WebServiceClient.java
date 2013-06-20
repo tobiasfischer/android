@@ -199,7 +199,9 @@ final class WebServiceClient {
     	return result;
     }
     
-    static <T extends JsonMappable> HttpResponse<T> getJsonSingle(String path) {
+    static <T extends JsonMappable> HttpResponse<T> getJsonSingle(String path,
+    		                                                      String diskriminator,
+    		                                                      Map<String, Class<? extends T>> classMap) {
     	final HttpResponse<T> result = getJson(path);
     	if (result.responseCode != HTTP_OK) {
     		return result;
@@ -217,27 +219,27 @@ final class WebServiceClient {
     		}
     	}
     	
-//		final Class<? extends T> clazz = classMap.get(jsonObject.getString(diskriminator));
-//   		if (clazz == null) {
-//   			result.responseCode = HTTP_INTERNAL_ERROR;
-//   			return result;
-//   		}
-//   		
-//		try {
-//			result.resultObject = clazz.newInstance();
-//		}
-//		catch (InstantiationException e) {
-//			throw new InternalShopError(e.getMessage(), e);
-//		}
-//		catch (IllegalAccessException e) {
-//			throw new InternalShopError(e.getMessage(), e);
-//		}
+		final Class<? extends T> clazz = classMap.get(jsonObject.getString(diskriminator));
+   		if (clazz == null) {
+   			result.responseCode = HTTP_INTERNAL_ERROR;
+   			return result;
+   		}
+   		
+		try {
+			result.resultObject = clazz.newInstance();
+		}
+		catch (InstantiationException e) {
+			throw new InternalShopError(e.getMessage(), e);
+		}
+		catch (IllegalAccessException e) {
+			throw new InternalShopError(e.getMessage(), e);
+		}
 		result.resultObject.fromJsonObject(jsonObject);
     	
     	return result;
     }
     
-    static <T extends JsonMappable> HttpResponse<T> getJsonList(String path) {
+    static <T extends JsonMappable> HttpResponse<T> getJsonList(String path, Class<? extends T> clazz) {
     	final HttpResponse<T> result = getJson(path);
     	if (result.responseCode != HTTP_OK) {
     		return result;
@@ -257,21 +259,21 @@ final class WebServiceClient {
     	
     	final ArrayList<T> resultList = new ArrayList<T>(jsonArray.size());
     	final List<JsonObject> jsonObjectList = jsonArray.getValuesAs(JsonObject.class);
-//    	for (JsonObject jsonObject : jsonObjectList) {			
-//    		T object;
-//        	try {
-//    			object = clazz.newInstance();
-//    		}
-//    		catch (InstantiationException e) {
-//    			throw new InternalShopError(e.getMessage(), e);
-//    		}
-//    		catch (IllegalAccessException e) {
-//    			throw new InternalShopError(e.getMessage(), e);
-//    		}
-//        	object.fromJsonObject(jsonObject);
-//        	
-//        	resultList.add(object);
-//    	}
+    	for (JsonObject jsonObject : jsonObjectList) {			
+    		T object;
+        	try {
+    			object = clazz.newInstance();
+    		}
+    		catch (InstantiationException e) {
+    			throw new InternalShopError(e.getMessage(), e);
+    		}
+    		catch (IllegalAccessException e) {
+    			throw new InternalShopError(e.getMessage(), e);
+    		}
+        	object.fromJsonObject(jsonObject);
+        	
+        	resultList.add(object);
+    	}
     	
 		result.resultList = resultList;
     	return result;
