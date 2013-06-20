@@ -1,0 +1,20 @@
+<resources>
+
+	<string name="a_artikel_id_auswahl_hint">Select a article no.</string>
+	<string name="a_artikel_id_hint">Enter article no.</string>
+	<string name="a_artikelnnr_fehlt">The article no. is missing.</string>
+	<string name="a_artikel_id">Article No.</string>
+    <string name="a_name">Name</string>
+    <string name="a_name_hint">Enter the name</string>
+    <string name="a_name_auswahl_hint">Select a name</string>
+    <string name="a_name_fehlt">The name is missing.</string>
+    <string name="a_beschreibung">Description</string>
+    <string name="a_kategorie">Category</string>
+    <string name="a_preis">Price</string>
+    <string name="a_seit">Since</string>
+    <string name="a_artikeln_liste_title">Artikel</string>
+    <string name="a_hint_kundenname">Article name</string>
+    <string name="a_artikel_not_found">No article found with id %s.</string>
+    <string name="a_artikeln_not_found">No article found with lastname %s.</string>
+    
+</resources>

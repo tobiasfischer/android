@@ -7,6 +7,10 @@ public final class Constants {
 	public static final String ARTIKEL_KEY = "artikel";
 	public static final String ARTIKELS_KEY = "artikel";
 	
+	public static final String ARTIKEL_PATH = "/artikel";
+	public static final String ARTIKEL_PREFIX_PATH = ARTIKEL_PATH + "/prefix";
+	public static final String ARTIKEL_ID_PREFIX_PATH = ARTIKEL_PREFIX_PATH + "/id";
+	
 	public static final int WISCHEN_MIN_DISTANCE = 30;        // Min. Laenge des Wischens in Pixel
 	public static final int WISCHEN_MAX_OFFSET_PATH = 30;       // Max. Abweichung in der Y-Richtung in Pixel
 	public static final int WISCHEN_THRESHOLD_VELOCITY = 30;  // Geschwindigkeit: Pixel pro Sekunde
@@ -15,7 +19,7 @@ public final class Constants {
 	public static final int TAB_KUNDE_BESTELLUNGEN = 1;
 	
 	public static final String KUNDEN_PATH = "/kunden";
-	public static final String ARTIKEL_PATH = "/artikel";
+
 	
 	public static final String NACHNAME_PATH = KUNDEN_PATH + "?nachname=";
 	public static final String KUNDEN_PREFIX_PATH = KUNDEN_PATH + "/prefix";

@@ -40,12 +40,12 @@ public class ArtikelSucheId extends Fragment implements OnClickListener, OnEdito
 		setHasOptionsMenu(true);
 		// attachToRoot = false, weil die Verwaltung des Fragments durch die Activity erfolgt
 		//TODO Texte anpassen
-		return inflater.inflate(R.layout.kunden_suche_id, container, false);
+		return inflater.inflate(R.layout.artikels_suche_id, container, false);
 	}
 	
 	@Override
 	public void onViewCreated(View view, Bundle savedInstanceState) {
-		artikelIdTxt = (AutoCompleteTextView) view.findViewById(R.id.kunde_id_auto);
+		artikelIdTxt = (AutoCompleteTextView) view.findViewById(R.id.artikel_id_auto);
 		final ArrayAdapter<Long> adapter = new AutoCompleteIdAdapter(artikelIdTxt.getContext());
     	artikelIdTxt.setAdapter(adapter);
     	artikelIdTxt.setOnEditorActionListener(this);
@@ -99,7 +99,7 @@ public class ArtikelSucheId extends Fragment implements OnClickListener, OnEdito
 
 		final String artikelIdStr = artikelIdTxt.getText().toString();
 		if (TextUtils.isEmpty(artikelIdStr)) {
-			artikelIdTxt.setError(getString(R.string.k_kundennr_fehlt));
+			artikelIdTxt.setError(getString(R.string.a_artikelnnr_fehlt));
     		return;
     	}
 		
@@ -108,7 +108,7 @@ public class ArtikelSucheId extends Fragment implements OnClickListener, OnEdito
 		final HttpResponse<? extends Artikel> result = mainActivity.getArtikelServiceBinder().sucheArtikelById(artikelId, ctx);
 
 		if (result.responseCode == HTTP_NOT_FOUND) {
-			final String msg = getString(R.string.k_kunde_not_found, artikelIdStr);
+			final String msg = getString(R.string.a_artikel_not_found, artikelIdStr);
 			artikelIdTxt.setError(msg);
 			return;
 		}
@@ -185,7 +185,7 @@ public class ArtikelSucheId extends Fragment implements OnClickListener, OnEdito
     			
     	    	private List<Long> sucheIds(String idPrefix) {
     	    		final Main mainActivity = (Main) getActivity();
-    				final List<Long> ids = mainActivity.getKundeServiceBinder().sucheIds(idPrefix);
+    				final List<Long> ids = mainActivity.getArtikelServiceBinder().sucheIds(idPrefix);
     				return ids;
     	    	}
      

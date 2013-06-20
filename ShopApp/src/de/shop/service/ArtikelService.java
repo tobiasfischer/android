@@ -1,10 +1,15 @@
 package de.shop.service;
 
 import static android.app.ProgressDialog.STYLE_SPINNER;
+import static de.shop.ui.main.Prefs.mock;
 import static de.shop.ui.main.Prefs.timeout;
 import static de.shop.util.Constants.ARTIKEL_PATH;
+import static de.shop.util.Constants.ARTIKEL_ID_PREFIX_PATH;
 import static java.net.HttpURLConnection.HTTP_OK;
 import static java.util.concurrent.TimeUnit.SECONDS;
+
+import java.util.List;
+
 import android.app.ProgressDialog;
 import android.app.Service;
 import android.content.Context;
@@ -88,6 +93,17 @@ public class ArtikelService extends Service {
 		    }
     		
 		    return result;
+		}
+		public List<Long> sucheIds(String prefix) {
+			final String path = ARTIKEL_ID_PREFIX_PATH + "/" + prefix;
+		    Log.v(LOG_TAG, "sucheIds: path = " + path);
+
+    		final List<Long> ids = mock
+   				                   ? Mock.sucheKundeIdsByPrefix(prefix)
+   				                   : WebServiceClient.getJsonLongList(path);
+
+			Log.d(LOG_TAG, "sucheIds: " + ids.toString());
+			return ids;
 		}
 	}
 }
