@@ -4,7 +4,7 @@
 	android:layout_height="match_parent"
 	tools:context=".ui.main.Main" >
 
-	<TableLayout
+<TableLayout
 	    android:layout_width="match_parent"
 		android:layout_height="wrap_content" >
 	
@@ -77,79 +77,78 @@
 	        <TextView
 	            android:layout_width="match_parent"
 	            android:layout_height="wrap_content"
-	            android:text="@string/k_adresse" />
+	            android:text="@string/k_lieferadresse" />
 	        
-	        <RelativeLayout
+	       <RelativeLayout
 	        	android:layout_width="match_parent"
 	    		android:layout_height="wrap_content">
 	    		
 		        <TextView
 		            style="@style/RechteSpalteText"
-		            android:id="@+id/plz"
+		            android:id="@+id/L_plz"
 		            android:layout_width="wrap_content"
 		            android:layout_height="wrap_content"
 		            android:textIsSelectable="false" />
 		        
 		        <TextView
 		            style="@style/RechteSpalteText"
-		            android:id="@+id/ort"
+		            android:id="@+id/L_ort"
 		            android:layout_width="wrap_content"
 		            android:layout_height="wrap_content"
-		            android:layout_toRightOf="@+id/plz"
+		            android:layout_toRightOf="@+id/L_plz"
 		            android:textIsSelectable="false" />
 		        
 		        <TextView
 		            style="@style/RechteSpalteText"
-		            android:id="@+id/strasse"
+		            android:id="@+id/L_strasse"
 		            android:layout_width="wrap_content"
 		            android:layout_height="wrap_content"
-		            android:layout_below="@+id/plz"
+		            android:layout_below="@+id/L_plz"
 		            android:textIsSelectable="false" />
 		        
-		        <TextView
-		            style="@style/RechteSpalteText"
-		            android:id="@+id/hausnr"
-		            android:layout_width="wrap_content"
-		            android:layout_height="wrap_content"
-		            android:layout_below="@+id/plz"
-		            android:layout_toRightOf="@+id/strasse"
-		            android:textIsSelectable="false" />
+
 			        
 	        </RelativeLayout>
 	
 	    </TableRow>
 	    
 	    <TableRow>
-	    	
-	    	<TextView
-	            android:layout_width="match_parent"
-	            android:layout_height="wrap_content"
-	            android:text="@string/k_seit" />
-	    	
-	    	<TextView
-	        	style="@style/RechteSpalteText"
-	            android:id="@+id/seit"
-	            android:layout_width="match_parent"
-	            android:layout_height="wrap_content"
-	            android:textIsSelectable="false" />
-	    	
-	   	</TableRow>
-
-	    <TableRow>
 	    
-	    	<TextView
+	    <TextView
 	            android:layout_width="match_parent"
 	            android:layout_height="wrap_content"
-	            android:text="@string/k_newsletter" />
+	            android:text="@string/k_rechnungsadresse" />
+	        
+	       <RelativeLayout
+	        	android:layout_width="match_parent"
+	    		android:layout_height="wrap_content">
+	    		
+		        <TextView
+		            style="@style/RechteSpalteText"
+		            android:id="@+id/R_plz"
+		            android:layout_width="wrap_content"
+		            android:layout_height="wrap_content"
+		            android:textIsSelectable="false" />
+		        
+		        <TextView
+		            style="@style/RechteSpalteText"
+		            android:id="@+id/R_ort"
+		            android:layout_width="wrap_content"
+		            android:layout_height="wrap_content"
+		            android:layout_toRightOf="@+id/R_plz"
+		            android:textIsSelectable="false" />
+		        
+		        <TextView
+		            style="@style/RechteSpalteText"
+		            android:id="@+id/R_strasse"
+		            android:layout_width="wrap_content"
+		            android:layout_height="wrap_content"
+		            android:layout_below="@+id/R_plz"
+		            android:textIsSelectable="false" />
+
+			        
+	        </RelativeLayout>
 	
-	    	<ToggleButton
-			    android:id="@+id/newsletter"
-			    android:layout_width="wrap_content"
-			    android:layout_height="wrap_content"
-			    android:textOn="@string/s_ja"
-			    android:textOff="@string/s_nein"
-			    android:clickable="false" />
-	    	
 	    </TableRow>
 	    
 	    <TableRow>
@@ -179,59 +178,6 @@
 		    	
 		    </RadioGroup>
 	    
-	    </TableRow>
-	
-	    <TableRow>
-	    
-	    	<TextView
-	            android:layout_width="match_parent"
-	            android:layout_height="wrap_content"
-	            android:text="@string/k_familienstand" />
-	    	
-		    <Spinner
-		    	android:id="@+id/familienstand"
-		    	android:layout_width="wrap_content"
-		    	android:layout_height="wrap_content"
-		    	android:clickable="false"
-		    	android:entries="@array/k_familienstand_entries"
-		    	android:entryValues="@array/a_familienstand_enum" />
-		    
-		</TableRow>
-	
-	    <TableRow>
-	    	<TextView
-	            android:layout_width="match_parent"
-	            android:layout_height="wrap_content"
-	            android:text="@string/k_hobbies" />
-	    	
-	    	<LinearLayout
-	    		android:orientation="vertical"
-	    		android:layout_width="wrap_content"
-	    		android:layout_height="wrap_content">
-	
-			    <CheckBox
-			    	android:id="@+id/sport"
-			    	android:layout_width="wrap_content"
-			    	android:layout_height="wrap_content"
-			    	android:clickable="false"
-			    	android:text="@string/k_sport" />
-			    
-			    <CheckBox
-			    	android:id="@+id/lesen"
-			    	android:layout_width="wrap_content"
-			    	android:layout_height="wrap_content"
-			    	android:clickable="false"
-			    	android:text="@string/k_lesen" />
-			    
-			    <CheckBox
-			    	android:id="@+id/reisen"
-			    	android:layout_width="wrap_content"
-			    	android:layout_height="wrap_content"
-			    	android:clickable="false"
-			    	android:text="@string/k_reisen" />
-	
-	    	</LinearLayout>
-	    	
 	    </TableRow>
 	
 	</TableLayout>

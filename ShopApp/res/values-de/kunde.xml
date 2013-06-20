@@ -12,7 +12,7 @@
     <string name="k_vorname">Vorname</string>
     <string name="k_kategorie">Kategorie</string>
     <string name="k_email">Email</string>
-    <string name="k_adresse">Adresse</string>
+    <string name="k_lieferadresse">Lieferadresse</string>
     <string name="k_plz">PLZ</string>
     <string name="k_ort">Ort</string>
     <string name="k_strasse">Straße</string>
@@ -46,5 +46,6 @@
        	<item>Geschieden</item>
        	<item>Verwitwet</item>
     </string-array>
+    <string name="k_rechnungsadresse">Rechnungsadresse</string>
     
 </resources>
