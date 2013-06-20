@@ -73,14 +73,8 @@ final class Mock {
     		return new HttpResponse<Kunde>(HTTP_NOT_FOUND, "Kein Kunde gefunden mit ID " + id);
     	}
     	
-    	int dateinameId;
-    	if (id % 3 == 0) {
-    		dateinameId = R.raw.mock_firmenkunde;
-    	}
-    	else {
-    		dateinameId = R.raw.mock_privatkunde;
-    	}
-    	
+    	int dateinameId = R.raw.mock_privatkunde;
+
     	final String jsonStr = read(dateinameId);
     	JsonReader jsonReader = null;
     	JsonObject jsonObject;
@@ -94,9 +88,7 @@ final class Mock {
     		}
     	}
     	
-    	final Kunde kunde = jsonObject.getString("type").equals("P")
-    	                            ? new Privatkunde()
-    	                            : new Firmenkunde();
+    	Kunde kunde = new Kunde();
 
     	kunde.fromJsonObject(jsonObject);
     	kunde.id = id;

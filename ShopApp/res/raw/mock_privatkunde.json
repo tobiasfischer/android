@@ -1,28 +1,45 @@
 {
-	"type": "P",
-	"id": 100,
-	"version": 0,
-    "nachname": "Test",
-    "vorname": "Theo",
-    "seit": "2001-01-31",
-    "umsatz": 1500.5,
-    "rabatt": 0.1,
-    "kategorie": 3,
-    "email": "theo@test.de",
-    "newsletter": true,
-    "password": "100",
-    "passwordWdh": "100",
-    "adresse": {
-		"id": 200,
-		"version": 0,
-        "plz": "76133",
+    "version": 0,
+    "vorname": "Daniel",
+    "nachname": "Pfeiffer",
+    "email": "DanielPfeiffer@mailinator.com",
+    "geschlecht": "M",
+    "passwort": "FaoMfo+9KSPbcEHQEuiDjWa5Vy0=",
+    "telefonnummer": "0355 48 11 22",
+    "lieferadresse": {
+        "adresseId": 100,
+        "version": 0,
+        "strasse": "Willy-Andreas-Allee 17",
+        "plz": "76131",
         "ort": "Karlsruhe",
-        "strasse": "Moltkestraße",
-        "hausnr": "31"
+        "land": "DE"
     },
-    "agbAkzeptiert": true,
-    "bestellungenUri": "http://localhost:8080/shop/rest/kunden/100/bestellungen",
-    "familienstand": "VERHEIRATET",
-    "geschlecht": "MAENNLICH",
-    "hobbies": [ "SPORT", "LESEN" ]
+    "rechnungsadresse": {
+        "adresseId": 101,
+        "version": 0,
+        "strasse": "Willy-Andreas-Allee 17",
+        "plz": "76131",
+        "ort": "Karlsruhe",
+        "land": "DE"
+    },
+    "zahlungsinformation": {
+        "zahlId": 700,
+        "version": 0,
+        "kontoinhaber": "Daniel Pfeiffer",
+        "kontonummer": 6944626,
+        "blz": 66650085,
+        "kreditinstitut": "Sparkasse Calw",
+        "iban": "DE54666500850005054284",
+        "swift": "PZHSDE66XXX"
+    },
+    "geburtsdatum": 20,
+    "rollen": [
+        "ABTEILUNGSLEITER",
+        "MITARBEITER",
+        "KUNDE",
+        "ADMIN"
+    ],
+    "bestellungenUri": "http://localhost:8080/shop/rest/kunden/600/bestellungen",
+    "kundeId": 600
+
 }

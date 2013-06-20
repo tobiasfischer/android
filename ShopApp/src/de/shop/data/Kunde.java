@@ -28,7 +28,7 @@ public class Kunde implements JsonMappable, Serializable {
 	
 	protected JsonObjectBuilder getJsonObjectBuilder() {
 		return jsonBuilderFactory.createObjectBuilder()
-				                 .add("id", id)
+				                 .add("kundeId", id)
 			                     .add("version", version)
 			                     .add("nachname", nachname)
 			                     .add("vorname", vorname)
@@ -43,7 +43,7 @@ public class Kunde implements JsonMappable, Serializable {
 	}
 
 	public void fromJsonObject(JsonObject jsonObject) {
-		id = Long.valueOf(jsonObject.getJsonNumber("id").longValue());
+		id = Long.valueOf(jsonObject.getJsonNumber("kundeId").longValue());
 	    version = jsonObject.getInt("version");
 		nachname = jsonObject.getString("nachname");
 		vorname = jsonObject.getString("vorname");
