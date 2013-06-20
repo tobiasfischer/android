@@ -12,6 +12,8 @@ public final class Constants {
 	public static final int TAB_KUNDE_BESTELLUNGEN = 1;
 	
 	public static final String KUNDEN_PATH = "/kunden";
+	public static final String ARTIKEL_PATH = "/artikel";
+	
 	public static final String NACHNAME_PATH = KUNDEN_PATH + "?nachname=";
 	public static final String KUNDEN_PREFIX_PATH = KUNDEN_PATH + "/prefix";
 	public static final String KUNDEN_ID_PREFIX_PATH = KUNDEN_PREFIX_PATH + "/id";
