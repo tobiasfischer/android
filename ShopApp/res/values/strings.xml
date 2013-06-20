@@ -7,8 +7,10 @@
 	<string name="s_nav_bestellungen">Orders</string>
 	<string name="s_einstellungen">Settings</string>
 	<string name="s_kunden_suche_id">Search by ID</string>
+	<string name="s_artikel_suche_id">Search by ID</string>
 	<string name="s_action_suchen_short">Search</string>
 	<string name="s_kunden_suche_nachname">Search by lastname</string>
+	<string name="s_artikel_suche_name">Search by name</string>
 	<string name="s_kunden_delete">Delete customer</string>
 	<string name="s_neu_anlegen">Create</string>
     <string name="s_btn_suchen">Search</string>
