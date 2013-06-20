@@ -1,7 +1,7 @@
 package de.shop.data;
 
 
-public class Firmenkunde extends AbstractKunde {
+public class Firmenkunde extends Kunde {
 	private static final long serialVersionUID = -3018823336715723505L;
 
 	@Override
