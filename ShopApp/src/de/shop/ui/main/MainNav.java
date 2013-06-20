@@ -19,8 +19,8 @@ import android.widget.ListAdapter;
 import android.widget.PopupMenu;
 import android.widget.PopupMenu.OnMenuItemClickListener;
 import android.widget.SimpleAdapter;
-
 import de.shop.R;
+import de.shop.ui.artikel.ArtikelSucheId;
 import de.shop.ui.bestellung.BestellungenNeu;
 import de.shop.ui.kunde.KundeDelete;
 import de.shop.ui.kunde.KundeSucheId;
@@ -29,7 +29,8 @@ import de.shop.ui.kunde.KundenSucheNachname;
 public class MainNav extends ListFragment implements OnItemClickListener, OnMenuItemClickListener  {
 	public enum NavType {
 		KUNDEN(0),
-		BESTELLUNGEN(1);
+		BESTELLUNGEN(1),
+		ARTIKELS(2);
 		
 		private int value;
 		
@@ -45,6 +46,7 @@ public class MainNav extends ListFragment implements OnItemClickListener, OnMenu
 			switch (value) {
 				case 0:	return KUNDEN;
 				case 1:	return BESTELLUNGEN;
+				case 2: return ARTIKELS;
 				default: return KUNDEN;
 			}
 		}
@@ -58,6 +60,7 @@ public class MainNav extends ListFragment implements OnItemClickListener, OnMenu
 	
 	private PopupMenu kundenPopup;
 	private PopupMenu bestellungenPopup;
+	private PopupMenu artikelsPopup;
 	
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -82,6 +85,11 @@ public class MainNav extends ListFragment implements OnItemClickListener, OnMenu
 				case BESTELLUNGEN:
 					navItem.put(ICON, R.drawable.ic_bestellungen);
 					navItem.put(TEXT, getString(R.string.s_nav_bestellungen));
+					break;
+					
+				case ARTIKELS:
+					navItem.put(ICON, R.drawable.ic_bestellungen);
+					navItem.put(TEXT, getString(R.string.s_nav_artikels));
 					break;
 					
 				default:
@@ -129,6 +137,15 @@ public class MainNav extends ListFragment implements OnItemClickListener, OnMenu
 				popup = bestellungenPopup;
 				break;
 				
+			case ARTIKELS:
+				if (artikelsPopup == null) {
+					artikelsPopup = new PopupMenu(getActivity(), view);
+					artikelsPopup.inflate(R.menu.artikels_popup);
+					artikelsPopup.setOnMenuItemClickListener(this);
+				}
+				popup = artikelsPopup;
+				break;
+				
 			default:
 				return;
 		}
@@ -156,6 +173,10 @@ public class MainNav extends ListFragment implements OnItemClickListener, OnMenu
 			case R.id.bestellungen_neu:
 				neuesFragment = new BestellungenNeu();
 				break;
+				
+			case R.id.artikels_suche_id:
+				neuesFragment = new ArtikelSucheId();
+				break;	
 
 			default:
 				return false;

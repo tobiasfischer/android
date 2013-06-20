@@ -20,7 +20,6 @@ import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListAdapter;
 import android.widget.SimpleAdapter;
 import de.shop.R;
-import de.shop.data.AbstractKunde;
 import de.shop.data.Artikel;
 
 public class ArtikelsListeNav extends ListFragment implements OnItemClickListener  {
