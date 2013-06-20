@@ -11,7 +11,7 @@ import javax.json.JsonObject;
 import javax.json.JsonObjectBuilder;
 
 
-public class Privatkunde extends AbstractKunde {
+public class Privatkunde extends Kunde {
 	private static final long serialVersionUID = -3018823336715723505L;
 
 	public GeschlechtType geschlecht;

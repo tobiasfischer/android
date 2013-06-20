@@ -12,7 +12,7 @@ import android.content.ServiceConnection;
 import android.os.Bundle;
 import android.os.IBinder;
 import android.util.Log;
-import de.shop.data.AbstractKunde;
+import de.shop.data.Kunde;
 import de.shop.service.KundeService;
 import de.shop.service.KundeService.KundeServiceBinder;
 
@@ -64,7 +64,7 @@ public class SucheNachnameActivity extends Activity {
 	}
 	
 	private void suchen(String name) {
-		final ArrayList<? extends AbstractKunde> kunden = kundeServiceBinder.sucheKundenByNachname(name, this).resultList;
+		final ArrayList<? extends Kunde> kunden = kundeServiceBinder.sucheKundenByNachname(name, this).resultList;
 		Log.d(LOG_TAG, kunden.toString());
 		
 		final Intent intent = new Intent(this, KundenListe.class);

@@ -2,55 +2,100 @@ package de.shop.data;
 
 import static de.shop.ShopApp.jsonBuilderFactory;
 
-import java.util.Collection;
-import java.util.HashSet;
+import java.io.Serializable;
+import java.math.BigDecimal;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Locale;
 
-import javax.json.JsonArray;
-import javax.json.JsonArrayBuilder;
 import javax.json.JsonObject;
 import javax.json.JsonObjectBuilder;
 
+import de.shop.util.InternalShopError;
 
-public class Kunde extends AbstractKunde  {
-	private static final long serialVersionUID = -3018823336715723505L;
+public class Kunde implements JsonMappable, Serializable {
+	private static final long serialVersionUID = -7505776004556360014L;
+	//private static final String DATE_FORMAT = "yyyy-MM-dd";
 
-	public GeschlechtType geschlecht;
-	public FamilienstandType familienstand;
-	public Collection<HobbyType> hobbies;
-
-	@Override
+	public Long id;
+	public int version;
+	public String nachname;
+	public String vorname;
+	public String email;
+	public String telefonnummer;
+	
+	
 	protected JsonObjectBuilder getJsonObjectBuilder() {
-		final JsonObjectBuilder jsonObjectBuilder = super.getJsonObjectBuilder()
-				                                         .add("geschlecht", geschlecht.toString())
-			                                             .add("familienstand", familienstand.toString());
-		
-		final JsonArrayBuilder jsonArrayBuilder = jsonBuilderFactory.createArrayBuilder();
-		for (HobbyType hobby : hobbies) {
-			jsonArrayBuilder.add(hobby.toString());
-		}
-		jsonObjectBuilder.add("hobbies", jsonArrayBuilder);
-		
-		return jsonObjectBuilder;
+		return jsonBuilderFactory.createObjectBuilder()
+				                 .add("id", id)
+			                     .add("version", version)
+			                     .add("nachname", nachname)
+			                     .add("vorname", vorname)
+			                     .add("email", email);
+			                     //.add("adresse", adresse.getJsonBuilderFactory())
+			                     //.add("seit", new SimpleDateFormat(DATE_FORMAT, Locale.getDefault()).format(seit))
 	}
 	
 	@Override
+	public JsonObject toJsonObject() {
+		return getJsonObjectBuilder().build();
+	}
+
 	public void fromJsonObject(JsonObject jsonObject) {
-		super.fromJsonObject(jsonObject);
-		
-		geschlecht = GeschlechtType.valueOf(jsonObject.getString("geschlecht"));
-		familienstand = FamilienstandType.valueOf(jsonObject.getString("familienstand"));
-		
-		final JsonArray jsonArray = jsonObject.getJsonArray("hobbies");
-		final int anzahl = jsonArray.size();
-		hobbies = new HashSet<HobbyType>(HobbyType.values().length, 1);
-		for (int i = 0; i < anzahl; i++) {
-			hobbies.add(HobbyType.valueOf(jsonArray.getString(i)));
+		id = Long.valueOf(jsonObject.getJsonNumber("id").longValue());
+	    version = jsonObject.getInt("version");
+		nachname = jsonObject.getString("nachname");
+		vorname = jsonObject.getString("vorname");
+		email = jsonObject.getString("email");
+		//adresse = new Adresse();
+		//adresse.fromJsonObject(jsonObject.getJsonObject("adresse"));
+		/*try {
+			seit = new SimpleDateFormat(DATE_FORMAT, Locale.getDefault()).parse(jsonObject.getString("seit"));
 		}
+		catch (ParseException e) {
+			throw new InternalShopError(e.getMessage(), e);
+		}; */
+		
+		//bestellungenUri = jsonObject.getString("bestellungenUri");
 	}
 	
+	@Override
+	public void updateVersion() {
+		version++;
+	}
+	
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((email == null) ? 0 : email.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Kunde other = (Kunde) obj;
+		if (email == null) {
+			if (other.email != null)
+				return false;
+		} else if (!email.equals(other.email))
+			return false;
+		return true;
+	}
+
 	@Override
 	public String toString() {
-		return "Kunde [" + super.toString() + ", geschlecht=" + geschlecht
-				+ ", familienstand=" + familienstand + ", hobbies=" + hobbies + "]";
+		return "Kunde [id=" + id + ", version=" + version
+				+ ", nachname=" + nachname + ", vorname=" + vorname
+				+ ", email=" + email + ", telefonnummer=" + telefonnummer + "]";
 	}
+
+	
 }

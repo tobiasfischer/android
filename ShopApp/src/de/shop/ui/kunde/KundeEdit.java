@@ -38,7 +38,7 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.ToggleButton;
 import de.shop.R;
-import de.shop.data.AbstractKunde;
+import de.shop.data.Kunde;
 import de.shop.data.FamilienstandType;
 import de.shop.data.GeschlechtType;
 import de.shop.data.HobbyType;
@@ -51,7 +51,7 @@ import de.shop.ui.main.Prefs;
 public class KundeEdit extends Fragment {
 	private static final String LOG_TAG = KundeEdit.class.getSimpleName();
 	
-	private AbstractKunde kunde;
+	private Kunde kunde;
 	private EditText edtNachname;
 	private EditText edtVorname;
 	private EditText edtEmail;
@@ -71,7 +71,7 @@ public class KundeEdit extends Fragment {
 	
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-		kunde = (AbstractKunde) getArguments().get(KUNDE_KEY);
+		kunde = (Kunde) getArguments().get(KUNDE_KEY);
 		Log.d(LOG_TAG, kunde.toString());
         
 		// Voraussetzung fuer onOptionsItemSelected()
@@ -95,34 +95,9 @@ public class KundeEdit extends Fragment {
     	edtEmail = (EditText) view.findViewById(R.id.email_edt);
     	edtEmail.setText(kunde.email);
     	
-    	edtPlz = (EditText) view.findViewById(R.id.plz_edt);
-    	edtPlz.setText(kunde.adresse.plz);
     	
-    	edtOrt = (EditText) view.findViewById(R.id.ort_edt);
-    	edtOrt.setText(kunde.adresse.ort);
     	
-    	edtStrasse = (EditText) view.findViewById(R.id.strasse_edt);
-    	edtStrasse.setText(kunde.adresse.strasse);
-    	
-    	edtHausnr = (EditText) view.findViewById(R.id.hausnr_edt);
-    	edtHausnr.setText(kunde.adresse.hausnr);
-    	
-    	dpSeit = (DatePicker) view.findViewById(R.id.seit);
-    	final GregorianCalendar cal = new GregorianCalendar(Locale.getDefault());
-    	cal.setTime(kunde.seit);
-    	final int jahr = cal.get(YEAR);
-    	final int monat = cal.get(MONTH);
-    	final int tag = cal.get(DAY_OF_MONTH);
-    	dpSeit.init(jahr, monat, tag, null);
-    	
-    	npKategorie = (NumberPicker) view.findViewById(R.id.kategorie);
-    	npKategorie.setMinValue(MIN_KATEGORIE);
-    	npKategorie.setMaxValue(MAX_KATEGORIE);
-    	npKategorie.setWrapSelectorWheel(false); // kein zyklisches Scrollen
-    	npKategorie.setValue(kunde.kategorie);
-    	
-    	tglNewsletter = (ToggleButton) view.findViewById(R.id.newsletter_tgl);
-    	tglNewsletter.setChecked(kunde.newsletter);
+    
     	
     	rbMaennlich = (RadioButton) view.findViewById(R.id.maennlich);
     	rbWeiblich = (RadioButton) view.findViewById(R.id.weiblich);
@@ -229,7 +204,7 @@ public class KundeEdit extends Fragment {
 					return true;
 				}
 				
-				final HttpResponse<AbstractKunde> result = kundeServiceBinder.updateKunde((Privatkunde) kunde, activity);
+				final HttpResponse<Kunde> result = kundeServiceBinder.updateKunde((Privatkunde) kunde, activity);
 				final int statuscode = result.responseCode;
 				if (statuscode != HTTP_NO_CONTENT && statuscode != HTTP_OK) {
 					String msg = null;
@@ -295,18 +270,11 @@ public class KundeEdit extends Fragment {
 		
 		kunde.vorname = edtVorname.getText().toString();
 		kunde.email = edtEmail.getText().toString();
-		kunde.adresse.plz = edtPlz.getText().toString();
-		kunde.adresse.ort = edtOrt.getText().toString();
-		kunde.adresse.strasse = edtStrasse.getText().toString();
-		kunde.adresse.hausnr = edtHausnr.getText().toString();
+		
 		
 		final GregorianCalendar cal = new GregorianCalendar(Locale.getDefault());
 		cal.set(dpSeit.getYear(), dpSeit.getMonth(), dpSeit.getDayOfMonth());
-		kunde.seit = cal.getTime();
 		
-		kunde.kategorie = (short) npKategorie.getValue();
-		
-		kunde.newsletter = tglNewsletter.isChecked();
 		
 		if (kunde.getClass().equals(Privatkunde.class)) {
 			final Privatkunde privatkunde = (Privatkunde) kunde;

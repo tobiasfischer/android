@@ -30,7 +30,7 @@ import android.text.TextUtils;
 import android.util.Log;
 import de.shop.R;
 import de.shop.ShopApp;
-import de.shop.data.AbstractKunde;
+import de.shop.data.Kunde;
 import de.shop.data.Bestellung;
 import de.shop.data.Firmenkunde;
 import de.shop.data.Privatkunde;
@@ -68,9 +68,9 @@ final class Mock {
 		return jsonStr;
 	}
 	
-	static HttpResponse<AbstractKunde> sucheKundeById(Long id) {
+	static HttpResponse<Kunde> sucheKundeById(Long id) {
     	if (id <= 0 || id >= 1000) {
-    		return new HttpResponse<AbstractKunde>(HTTP_NOT_FOUND, "Kein Kunde gefunden mit ID " + id);
+    		return new HttpResponse<Kunde>(HTTP_NOT_FOUND, "Kein Kunde gefunden mit ID " + id);
     	}
     	
     	int dateinameId;
@@ -94,23 +94,23 @@ final class Mock {
     		}
     	}
     	
-    	final AbstractKunde kunde = jsonObject.getString("type").equals("P")
+    	final Kunde kunde = jsonObject.getString("type").equals("P")
     	                            ? new Privatkunde()
     	                            : new Firmenkunde();
 
     	kunde.fromJsonObject(jsonObject);
     	kunde.id = id;
 		
-    	final HttpResponse<AbstractKunde> result = new HttpResponse<AbstractKunde>(HTTP_OK, jsonObject.toString(), kunde);
+    	final HttpResponse<Kunde> result = new HttpResponse<Kunde>(HTTP_OK, jsonObject.toString(), kunde);
     	return result;
 	}
 
-	static HttpResponse<AbstractKunde> sucheKundenByNachname(String nachname) {
+	static HttpResponse<Kunde> sucheKundenByNachname(String nachname) {
 		if (nachname.startsWith("X")) {
-			return new HttpResponse<AbstractKunde>(HTTP_NOT_FOUND, "Keine Kunde gefunden mit Nachname " + nachname);
+			return new HttpResponse<Kunde>(HTTP_NOT_FOUND, "Keine Kunde gefunden mit Nachname " + nachname);
 		}
 		
-		final ArrayList<AbstractKunde> kunden = new ArrayList<AbstractKunde>();
+		final ArrayList<Kunde> kunden = new ArrayList<Kunde>();
 		final String jsonStr = read(R.raw.mock_kunden);
 		JsonReader jsonReader = null;
     	JsonArray jsonArray;
@@ -126,7 +126,7 @@ final class Mock {
 		
     	final List<JsonObject> jsonObjectList = jsonArray.getValuesAs(JsonObject.class);
    		for (JsonObject jsonObject : jsonObjectList) {
-           	final AbstractKunde kunde = jsonObject.getString("type").equals("P")
+           	final Kunde kunde = jsonObject.getString("type").equals("P")
    					                    ? new Privatkunde()
    			                            : new Firmenkunde();
 			kunde.fromJsonObject(jsonObject);
@@ -134,7 +134,7 @@ final class Mock {
    			kunden.add(kunde);
    		}
     	
-    	final HttpResponse<AbstractKunde> result = new HttpResponse<AbstractKunde>(HTTP_OK, jsonArray.toString(), kunden);
+    	final HttpResponse<Kunde> result = new HttpResponse<Kunde>(HTTP_OK, jsonArray.toString(), kunden);
 		return result;
     }
 
@@ -240,31 +240,31 @@ final class Mock {
     	return result;
     }
     
-    static HttpResponse<AbstractKunde> createKunde(AbstractKunde kunde) {
+    static HttpResponse<Kunde> createKunde(Kunde kunde) {
     	kunde.id = Long.valueOf(kunde.nachname.length());  // Anzahl der Buchstaben des Nachnamens als emulierte neue ID
     	Log.d(LOG_TAG, "createKunde: " + kunde);
     	Log.d(LOG_TAG, "createKunde: " + kunde.toJsonObject());
-    	final HttpResponse<AbstractKunde> result = new HttpResponse<AbstractKunde>(HTTP_CREATED, KUNDEN_PATH + "/1", kunde);
+    	final HttpResponse<Kunde> result = new HttpResponse<Kunde>(HTTP_CREATED, KUNDEN_PATH + "/1", kunde);
     	return result;
     }
 
-    static HttpResponse<AbstractKunde> updateKunde(AbstractKunde kunde) {
+    static HttpResponse<Kunde> updateKunde(Kunde kunde) {
     	Log.d(LOG_TAG, "updateKunde: " + kunde);
     	
     	if (TextUtils.isEmpty(username)) {
-    		return new HttpResponse<AbstractKunde>(HTTP_UNAUTHORIZED, null);
+    		return new HttpResponse<Kunde>(HTTP_UNAUTHORIZED, null);
     	}
     	
     	if ("x".equals(username)) {
-    		return new HttpResponse<AbstractKunde>(HTTP_FORBIDDEN, null);
+    		return new HttpResponse<Kunde>(HTTP_FORBIDDEN, null);
     	}
     	
     	if ("y".equals(username)) {
-    		return new HttpResponse<AbstractKunde>(HTTP_CONFLICT, "Die Email-Adresse existiert bereits");
+    		return new HttpResponse<Kunde>(HTTP_CONFLICT, "Die Email-Adresse existiert bereits");
     	}
     	
     	Log.d(LOG_TAG, "updateKunde: " + kunde.toJsonObject());
-    	return new HttpResponse<AbstractKunde>(HTTP_NO_CONTENT, null, kunde);
+    	return new HttpResponse<Kunde>(HTTP_NO_CONTENT, null, kunde);
     }
 
     static HttpResponse<Void> deleteKunde(Long kundeId) {

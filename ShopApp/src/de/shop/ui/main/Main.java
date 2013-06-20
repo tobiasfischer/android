@@ -14,9 +14,9 @@ import android.os.IBinder;
 import android.util.Log;
 import android.widget.Toast;
 import de.shop.R;
-import de.shop.data.AbstractKunde;
 import de.shop.service.ArtikelService;
 import de.shop.service.ArtikelService.ArtikelServiceBinder;
+import de.shop.data.Kunde;
 import de.shop.service.BestellungService;
 import de.shop.service.KundeService;
 import de.shop.service.BestellungService.BestellungServiceBinder;
@@ -89,7 +89,7 @@ public class Main extends Activity {
         }
         //TODO Abgrenzung für Artikel?
         else {
-	        final AbstractKunde kunde = (AbstractKunde) extras.get(KUNDE_KEY);
+	        final Kunde kunde = (Kunde) extras.get(KUNDE_KEY);
 	        if (kunde != null) {
 	        	Log.d(LOG_TAG, kunde.toString());
 	        	
