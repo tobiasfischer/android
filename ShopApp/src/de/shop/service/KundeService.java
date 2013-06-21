@@ -5,18 +5,13 @@ import static de.shop.ui.main.Prefs.mock;
 import static de.shop.ui.main.Prefs.timeout;
 import static de.shop.util.Constants.KUNDEN_ID_PREFIX_PATH;
 import static de.shop.util.Constants.KUNDEN_PATH;
-import static de.shop.util.Constants.LOCALHOST;
-import static de.shop.util.Constants.LOCALHOST_EMULATOR;
 import static de.shop.util.Constants.NACHNAME_PATH;
 import static de.shop.util.Constants.NACHNAME_PREFIX_PATH;
 import static java.net.HttpURLConnection.HTTP_NO_CONTENT;
 import static java.net.HttpURLConnection.HTTP_OK;
 import static java.util.concurrent.TimeUnit.SECONDS;
 
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import android.app.ProgressDialog;
 import android.app.Service;
@@ -25,28 +20,16 @@ import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Binder;
 import android.os.IBinder;
-import android.text.TextUtils;
 import android.util.Log;
 import de.shop.R;
 import de.shop.data.Kunde;
-import de.shop.data.Firmenkunde;
-import de.shop.data.Privatkunde;
 import de.shop.util.InternalShopError;
 
 public class KundeService extends Service {
 	private static final String LOG_TAG = KundeService.class.getSimpleName();
-	private static final String TYPE = "type";
-	private static final Map<String, Class<? extends Kunde>> CLASS_MAP;
 	
 	private KundeServiceBinder binder = new KundeServiceBinder();
 	
-	static {
-		// 2 Eintraege in die HashMap mit 100% = 1.0 Fuellgrad
-		CLASS_MAP = new HashMap<String, Class<? extends Kunde>>(2, 1);
-		CLASS_MAP.put("P", Privatkunde.class);
-		CLASS_MAP.put("F", Firmenkunde.class);
-	}
-
 	@Override
 	public IBinder onBind(Intent intent) {
 		return binder;
@@ -143,7 +126,7 @@ public class KundeService extends Service {
 					Log.v(LOG_TAG, "path = " + path);
 		    		final HttpResponse<Kunde> result = mock
 		    				                                   ? Mock.sucheKundenByNachname(nachname)
-		    				                                   : WebServiceClient.getJsonList(path, TYPE, CLASS_MAP);
+		    				                                   : WebServiceClient.getJsonList(path, Kunde.class);
 					Log.d(LOG_TAG + ".AsyncTask", "doInBackground: " + result);
 					return result;
 				}
