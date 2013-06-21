@@ -32,6 +32,7 @@
     <string name="k_bestellungen_kunde_id">Kunde %d:</string>
     <string name="k_keine_bestellungen">Der Kunde %d hat keine Bestellungen.</string>
     <string name="k_kunde_bestellung_id">Bestellnr. %d</string>
+    <string name="k_kunde_bestell_pos_id">Bestellposition. %d</string>
     <string name="k_bestellung_id">Bestellnr.</string>
     <string name="k_datum">Datum</string>
     <string name="k_karte">Karte</string>

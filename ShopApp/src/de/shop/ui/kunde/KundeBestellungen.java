@@ -8,7 +8,6 @@ import java.util.List;
 import android.app.Activity;
 import android.app.Fragment;
 import android.os.Bundle;
-import android.text.format.DateFormat;
 import android.util.Log;
 import android.view.GestureDetector;
 import android.view.GestureDetector.OnGestureListener;
@@ -26,8 +25,9 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 import de.shop.R;
-import de.shop.data.Kunde;
+import de.shop.data.Bestellposition;
 import de.shop.data.Bestellung;
+import de.shop.data.Kunde;
 import de.shop.service.BestellungService.BestellungServiceBinder;
 import de.shop.service.KundeService.KundeServiceBinder;
 import de.shop.ui.main.Main;
@@ -45,6 +45,8 @@ public class KundeBestellungen extends Fragment implements OnItemClickListener, 
 	
 	private TextView txtBestellungId;
 	private TextView txtBestellungDatum;
+	private List<Bestellposition> bestellpositionen;
+
 	
 	private KundeServiceBinder kundeServiceBinder;
 	private BestellungServiceBinder bestellungServiceBinder;
@@ -68,6 +70,7 @@ public class KundeBestellungen extends Fragment implements OnItemClickListener, 
 		kundeTxt.setText(getString(R.string.k_bestellungen_kunde_id, kunde.id));
 		txtBestellungId = (TextView) view.findViewById(R.id.bestellung_id);
 		txtBestellungDatum = (TextView) view.findViewById(R.id.datum);
+
 		
 		final Activity activity = getActivity();
 		if (Main.class.equals(activity.getClass())) {
@@ -176,5 +179,27 @@ public class KundeBestellungen extends Fragment implements OnItemClickListener, 
 		txtBestellungId.setText(String.valueOf(bestellung.id));
 		//final String datumStr = bestellung.datum == null ? "" : DateFormat.getDateFormat(getActivity()).format(bestellung.datum);
     	txtBestellungDatum.setText(bestellung.status);
+    	
+    	
+	    	final ListView listView = (ListView) view.findViewById(R.id.bestell_pos_liste);
+	
+	        bestellpositionen = bestellung.bestellpositionen;
+			final String[] values = new String[bestellpositionen.size()];
+			for (int i = 0; i < bestellpositionen.size(); i++) {
+				values[i] = getString(R.string.k_kunde_bestell_pos_id, bestellpositionen.get(bestellpositionen.size() - i - 1).id);
+	          	
+	        	Log.d(LOG_TAG, values[i]);
+	        }
+			Log.d(LOG_TAG, "Bestellpos sind gesetzt!!!");
+	        final ArrayAdapter<String> adapter2 = new ArrayAdapter<String>(view.getContext(),
+	        		                                                      android.R.layout.simple_list_item_1,
+	        		                                                      android.R.id.text1,
+	        		                                                      values);
+	        Log.d(LOG_TAG, "Adapter ist gebaut!!!");
+	        // Items in der Liste duerfen angeklickt werden
+		listView.setAdapter(adapter2);
+		 Log.d(LOG_TAG, "Adapter ist gesetzt!!!");
+
+        
 	}
 }

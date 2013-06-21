@@ -17,7 +17,6 @@ import java.io.InputStreamReader;
 import java.io.StringReader;
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Date;
 import java.util.List;
 
 import javax.json.JsonArray;
@@ -30,10 +29,9 @@ import android.text.TextUtils;
 import android.util.Log;
 import de.shop.R;
 import de.shop.ShopApp;
-import de.shop.data.Kunde;
+import de.shop.data.Bestellposition;
 import de.shop.data.Bestellung;
-import de.shop.data.Firmenkunde;
-import de.shop.data.Privatkunde;
+import de.shop.data.Kunde;
 import de.shop.util.InternalShopError;
 
 final class Mock {
@@ -118,9 +116,7 @@ final class Mock {
 		
     	final List<JsonObject> jsonObjectList = jsonArray.getValuesAs(JsonObject.class);
    		for (JsonObject jsonObject : jsonObjectList) {
-           	final Kunde kunde = jsonObject.getString("type").equals("P")
-   					                    ? new Privatkunde()
-   			                            : new Firmenkunde();
+           	final Kunde kunde = new Kunde();
 			kunde.fromJsonObject(jsonObject);
 			kunde.nachname = nachname;
    			kunden.add(kunde);
@@ -265,7 +261,7 @@ final class Mock {
     }
 
     static HttpResponse<Bestellung> sucheBestellungById(Long id) {
-		final Bestellung bestellung = new Bestellung(id, new String());
+		final Bestellung bestellung = new Bestellung(id, new String(),new ArrayList<Bestellposition>());
 		
 		final JsonObject jsonObject = bestellung.toJsonObject();
 		final HttpResponse<Bestellung> result = new HttpResponse<Bestellung>(HTTP_OK, jsonObject.toString(), bestellung);

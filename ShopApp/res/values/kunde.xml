@@ -31,6 +31,7 @@
     <string name="k_bestellungen_kunde_id">Customer %d:</string>
     <string name="k_keine_bestellungen">No orders of customer %d</string>
     <string name="k_kunde_bestellung_id">Order no. %d</string>
+    <string name="k_kunde_bestell_pos_id">Item no. %d</string>
     <string name="k_bestellung_id">Order no.</string>
     <string name="k_datum">Date</string>
     <string name="k_karte">Map</string>

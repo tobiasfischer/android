@@ -19,6 +19,7 @@ public class Kunde implements JsonMappable, Serializable {
 	public String telefonnummer;
 	public Adresse lieferadresse;
 	public Adresse rechnungsadresse;
+	public GeschlechtType geschlecht;
 	
 	
 	protected JsonObjectBuilder getJsonObjectBuilder() {
@@ -29,7 +30,8 @@ public class Kunde implements JsonMappable, Serializable {
 			                     .add("vorname", vorname)
 			                     .add("email", email)
 			                     .add("lieferadresse", lieferadresse.getJsonBuilderFactory())
-			                     .add("rechnungsadresse", rechnungsadresse.getJsonBuilderFactory());
+			                     .add("rechnungsadresse", rechnungsadresse.getJsonBuilderFactory())
+								 .add("geschlecht", geschlecht.toString());
 			                     //.add("seit", new SimpleDateFormat(DATE_FORMAT, Locale.getDefault()).format(seit))
 	}
 	
@@ -48,6 +50,7 @@ public class Kunde implements JsonMappable, Serializable {
 		lieferadresse.fromJsonObject(jsonObject.getJsonObject("lieferadresse"));
 		rechnungsadresse = new Adresse();
 		rechnungsadresse.fromJsonObject(jsonObject.getJsonObject("rechnungsadresse"));
+		geschlecht = GeschlechtType.valueOf(jsonObject.getString("geschlecht"));
 		
 		
 		/*try {
@@ -70,6 +73,20 @@ public class Kunde implements JsonMappable, Serializable {
 		final int prime = 31;
 		int result = 1;
 		result = prime * result + ((email == null) ? 0 : email.hashCode());
+		result = prime * result
+				+ ((geschlecht == null) ? 0 : geschlecht.hashCode());
+		result = prime * result + ((id == null) ? 0 : id.hashCode());
+		result = prime * result
+				+ ((lieferadresse == null) ? 0 : lieferadresse.hashCode());
+		result = prime * result
+				+ ((nachname == null) ? 0 : nachname.hashCode());
+		result = prime
+				* result
+				+ ((rechnungsadresse == null) ? 0 : rechnungsadresse.hashCode());
+		result = prime * result
+				+ ((telefonnummer == null) ? 0 : telefonnummer.hashCode());
+		result = prime * result + version;
+		result = prime * result + ((vorname == null) ? 0 : vorname.hashCode());
 		return result;
 	}
 
@@ -87,14 +104,53 @@ public class Kunde implements JsonMappable, Serializable {
 				return false;
 		} else if (!email.equals(other.email))
 			return false;
+		if (geschlecht == null) {
+			if (other.geschlecht != null)
+				return false;
+		} else if (!geschlecht.equals(other.geschlecht))
+			return false;
+		if (id == null) {
+			if (other.id != null)
+				return false;
+		} else if (!id.equals(other.id))
+			return false;
+		if (lieferadresse == null) {
+			if (other.lieferadresse != null)
+				return false;
+		} else if (!lieferadresse.equals(other.lieferadresse))
+			return false;
+		if (nachname == null) {
+			if (other.nachname != null)
+				return false;
+		} else if (!nachname.equals(other.nachname))
+			return false;
+		if (rechnungsadresse == null) {
+			if (other.rechnungsadresse != null)
+				return false;
+		} else if (!rechnungsadresse.equals(other.rechnungsadresse))
+			return false;
+		if (telefonnummer == null) {
+			if (other.telefonnummer != null)
+				return false;
+		} else if (!telefonnummer.equals(other.telefonnummer))
+			return false;
+		if (version != other.version)
+			return false;
+		if (vorname == null) {
+			if (other.vorname != null)
+				return false;
+		} else if (!vorname.equals(other.vorname))
+			return false;
 		return true;
 	}
 
 	@Override
 	public String toString() {
-		return "Kunde [id=" + id + ", version=" + version
-				+ ", nachname=" + nachname + ", vorname=" + vorname
-				+ ", email=" + email + ", telefonnummer=" + telefonnummer + "]";
+		return "Kunde [id=" + id + ", version=" + version + ", nachname="
+				+ nachname + ", vorname=" + vorname + ", email=" + email
+				+ ", telefonnummer=" + telefonnummer + ", lieferadresse="
+				+ lieferadresse + ", rechnungsadresse=" + rechnungsadresse
+				+ ", geschlecht=" + geschlecht + "]";
 	}
 
 	

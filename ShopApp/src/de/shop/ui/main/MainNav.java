@@ -21,16 +21,14 @@ import android.widget.PopupMenu.OnMenuItemClickListener;
 import android.widget.SimpleAdapter;
 import de.shop.R;
 import de.shop.ui.artikel.ArtikelSucheId;
-import de.shop.ui.bestellung.BestellungenNeu;
-import de.shop.ui.kunde.KundeDelete;
+//import de.shop.ui.kunde.KundeDelete;
 import de.shop.ui.kunde.KundeSucheId;
 import de.shop.ui.kunde.KundenSucheNachname;
 
 public class MainNav extends ListFragment implements OnItemClickListener, OnMenuItemClickListener  {
 	public enum NavType {
 		KUNDEN(0),
-		BESTELLUNGEN(1),
-		ARTIKELS(2);
+		ARTIKELS(1);
 		
 		private int value;
 		
@@ -45,9 +43,8 @@ public class MainNav extends ListFragment implements OnItemClickListener, OnMenu
 		public static NavType valueOf(int value) {
 			switch (value) {
 				case 0:	return KUNDEN;
-				case 1:	return BESTELLUNGEN;
-				case 2: return ARTIKELS;
-				default: return KUNDEN;
+				case 1:	return ARTIKELS;
+			    default: return KUNDEN;
 			}
 		}
 	}
@@ -59,7 +56,6 @@ public class MainNav extends ListFragment implements OnItemClickListener, OnMenu
 	private static final int[] TO = { R.id.nav_icon, R.id.nav_text };
 	
 	private PopupMenu kundenPopup;
-	private PopupMenu bestellungenPopup;
 	private PopupMenu artikelsPopup;
 	
 	@Override
@@ -82,13 +78,8 @@ public class MainNav extends ListFragment implements OnItemClickListener, OnMenu
 					navItem.put(TEXT, getString(R.string.s_nav_kunden));
 					break;
 				
-				case BESTELLUNGEN:
-					navItem.put(ICON, R.drawable.ic_bestellungen);
-					navItem.put(TEXT, getString(R.string.s_nav_bestellungen));
-					break;
-					
 				case ARTIKELS:
-					navItem.put(ICON, R.drawable.ic_bestellungen);
+					navItem.put(ICON, R.drawable.ic_artikel);
 					navItem.put(TEXT, getString(R.string.s_nav_artikels));
 					break;
 					
@@ -128,15 +119,6 @@ public class MainNav extends ListFragment implements OnItemClickListener, OnMenu
 				popup = kundenPopup;
 				break;
 				
-			case BESTELLUNGEN:
-				if (bestellungenPopup == null) {
-					bestellungenPopup = new PopupMenu(getActivity(), view);
-					bestellungenPopup.inflate(R.menu.bestellungen_popup);
-					bestellungenPopup.setOnMenuItemClickListener(this);
-				}
-				popup = bestellungenPopup;
-				break;
-				
 			case ARTIKELS:
 				if (artikelsPopup == null) {
 					artikelsPopup = new PopupMenu(getActivity(), view);
@@ -166,13 +148,10 @@ public class MainNav extends ListFragment implements OnItemClickListener, OnMenu
 				neuesFragment = new KundenSucheNachname();
 				break;
 
-			case R.id.kunden_delete:
-				neuesFragment = new KundeDelete();
-				break;
+//			case R.id.kunden_delete:
+//				neuesFragment = new KundeDelete();
+//				break;
 
-			case R.id.bestellungen_neu:
-				neuesFragment = new BestellungenNeu();
-				break;
 				
 			case R.id.artikels_suche_id:
 				neuesFragment = new ArtikelSucheId();

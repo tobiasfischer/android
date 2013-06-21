@@ -62,7 +62,14 @@
 					android:paddingLeft="5dp" />
 		
 			</TableRow>
-		
+			<TableRow>
+				<ListView
+			    	android:id="@+id/bestell_pos_liste"
+			    	android:layout_weight="1"
+			    	android:layout_width="0dp"
+			        android:layout_height="wrap_content"
+			        android:paddingLeft="5dp" />
+			</TableRow>
 		</TableLayout>
     
     </LinearLayout>

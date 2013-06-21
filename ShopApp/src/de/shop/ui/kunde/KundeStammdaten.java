@@ -3,10 +3,7 @@ package de.shop.ui.kunde;
 import static de.shop.util.Constants.KUNDE_KEY;
 import android.app.Activity;
 import android.app.Fragment;
-import android.app.SearchManager;
-import android.content.Context;
 import android.os.Bundle;
-import android.text.format.DateFormat;
 import android.util.Log;
 import android.view.GestureDetector;
 import android.view.GestureDetector.OnGestureListener;
@@ -18,16 +15,10 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnTouchListener;
 import android.view.ViewGroup;
-import android.widget.CheckBox;
 import android.widget.RadioButton;
-import android.widget.SearchView;
-import android.widget.Spinner;
 import android.widget.TextView;
-import android.widget.ToggleButton;
 import de.shop.R;
 import de.shop.data.Kunde;
-import de.shop.data.HobbyType;
-import de.shop.data.Privatkunde;
 import de.shop.ui.main.Prefs;
 import de.shop.util.WischenListener;
 
@@ -96,25 +87,24 @@ public class KundeStammdaten extends Fragment implements OnTouchListener {
 //    	txtSeit.setText(seitStr);
     	
     	
-//    	final RadioButton rbMaennlich = (RadioButton) view.findViewById(R.id.maennlich);
-//    	final RadioButton rbWeiblich = (RadioButton) view.findViewById(R.id.weiblich);
-//    	
-//    	if (kunde.getClass().equals(Privatkunde.class)) {
-//    		final Privatkunde privatkunde = (Privatkunde) kunde;
-//    		
-//	    	if (privatkunde.geschlecht != null) {
-//		    	switch (privatkunde.geschlecht) {
-//			    	case MAENNLICH:
-//			        	rbMaennlich.setChecked(true);
-//				    	break;
-//				    	
-//			    	case WEIBLICH:
-//			        	rbWeiblich.setChecked(true);
-//				    	break;
-//				    	
-//				    default:
-//		    	}
-//	    	}
+    	final RadioButton rbMaennlich = (RadioButton) view.findViewById(R.id.maennlich);
+    	final RadioButton rbWeiblich = (RadioButton) view.findViewById(R.id.weiblich);
+	
+
+    		
+	    	if (kunde.geschlecht != null) {
+		    	switch (kunde.geschlecht) {
+			    	case M:
+			        	rbMaennlich.setChecked(true);
+				    	break;
+				    	
+			    	case W:
+			        	rbWeiblich.setChecked(true);
+				    	break;
+				    	
+				    default:
+		    	}
+	    	}
 	    	
 
 	}
@@ -129,31 +119,31 @@ public class KundeStammdaten extends Fragment implements OnTouchListener {
 		inflater.inflate(R.menu.kunde_stammdaten_options, menu);
 		
 		// "Searchable Configuration" in res\xml\searchable.xml wird der SearchView zugeordnet
-		final Activity activity = getActivity();
-	    final SearchManager searchManager = (SearchManager) activity.getSystemService(Context.SEARCH_SERVICE);
-	    final SearchView searchView = (SearchView) menu.findItem(R.id.suchen).getActionView();
-	    searchView.setSearchableInfo(searchManager.getSearchableInfo(activity.getComponentName()));
+//		final Activity activity = getActivity();
+//	    final SearchManager searchManager = (SearchManager) activity.getSystemService(Context.SEARCH_SERVICE);
+//	    final SearchView searchView = (SearchView) menu.findItem(R.id.suchen).getActionView();
+//	    searchView.setSearchableInfo(searchManager.getSearchableInfo(activity.getComponentName()));
 	}
 
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
 		switch (item.getItemId()) {
-			case R.id.edit:
-				// Evtl. vorhandene Tabs der ACTIVITY loeschen
-		    	getActivity().getActionBar().removeAllTabs();
-		    	
-				final Bundle args = new Bundle(1);
-				args.putSerializable(KUNDE_KEY, kunde);
-				
-				final Fragment neuesFragment = new KundeEdit();
-				neuesFragment.setArguments(args);
-				
-				// Kein Name (null) fuer die Transaktion, da die Klasse BackStageEntry nicht verwendet wird
-				getFragmentManager().beginTransaction()
-				                    .replace(R.id.details, neuesFragment)
-				                    .addToBackStack(null)  
-				                    .commit();
-				return true;
+//			case R.id.edit:
+//				// Evtl. vorhandene Tabs der ACTIVITY loeschen
+//		    	getActivity().getActionBar().removeAllTabs();
+//		    	
+//				final Bundle args = new Bundle(1);
+//				args.putSerializable(KUNDE_KEY, kunde);
+//				
+//				final Fragment neuesFragment = new KundeEdit();
+//				neuesFragment.setArguments(args);
+//				
+//				// Kein Name (null) fuer die Transaktion, da die Klasse BackStageEntry nicht verwendet wird
+//				getFragmentManager().beginTransaction()
+//				                    .replace(R.id.details, neuesFragment)
+//				                    .addToBackStack(null)  
+//				                    .commit();
+//				return true;
 				
 			case R.id.einstellungen:
 				getFragmentManager().beginTransaction()
