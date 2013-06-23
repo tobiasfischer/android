@@ -6,5 +6,8 @@
     <item
     	android:id="@+id/artikel_suche_name"
         android:title="@string/s_artikel_suche_name" />
+    <item
+    	android:id="@+id/artikel_anlegen"
+        android:title="@string/s_artikel_anlegen" />
     
 </menu>
