@@ -33,7 +33,7 @@
 			
 			<TextView
 			    style="@style/RechteSpalteText"
-				android:id="@+id/name_txt"
+				android:id="@+id/artikel_name"
 				android:layout_width="match_parent"
 				android:layout_height="wrap_content"
 				android:textIsSelectable="true" />
@@ -49,7 +49,7 @@
 	        
 	        <TextView
 	        	style="@style/RechteSpalteText"
-	            android:id="@+id/beschreibung"
+	            android:id="@+id/artikel_beschreibung"
 	            android:layout_width="match_parent"
 	            android:layout_height="wrap_content"
 	            android:textIsSelectable="false" />
@@ -65,7 +65,7 @@
 	        
 	        <TextView
 	        	style="@style/RechteSpalteText"
-	            android:id="@+id/preis"
+	            android:id="@+id/artikel_preis"
 	            android:layout_width="match_parent"
 	            android:layout_height="wrap_content"
 	            android:textIsSelectable="true" />
@@ -85,7 +85,7 @@
 	    		
 		        <TextView
 		            style="@style/RechteSpalteText"
-		            android:id="@+id/ka_name"
+		            android:id="@+id/artikel_kategorie_bezeichnung"
 		            android:layout_width="wrap_content"
 		            android:layout_height="wrap_content"
 		            android:textIsSelectable="false" />

@@ -52,24 +52,19 @@ public class ArtikelDaten extends Fragment implements OnTouchListener {
 	
 	private void fillValues(View view) {
 		final TextView txtId = (TextView) view.findViewById(R.id.artikel_id);
-		txtId.setText("Artikel ID Test");
-
-		if (artikel.name == null) {
-			try {
-				throw new Exception ("der Artikelname ist null :(");
-			} catch (Exception e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-		}
-//    	txtId.setText(artikel.id.toString());
-//    	
-    	final TextView txtName = (TextView) view.findViewById(R.id.name);
-    	String test = artikel.name;
-    	Log.e(test,"Der Artikel Name ist" + test);
-    	txtName.setText(test);
+    	txtId.setText(artikel.id.toString());
     	
+    	final TextView txtName = (TextView) view.findViewById(R.id.artikel_name);
+    	txtName.setText(artikel.name);
     	
+    	final TextView txtBeschreibung = (TextView) view.findViewById(R.id.artikel_beschreibung);
+    	txtBeschreibung.setText(artikel.beschreibung);
+    	
+    	final TextView txtPreis = (TextView) view.findViewById(R.id.artikel_preis);
+    	txtPreis.setText(artikel.preis.toString());
+    	
+    	final TextView txtKategorie = (TextView) view.findViewById(R.id.artikel_kategorie_bezeichnung);
+    	txtKategorie.setText(artikel.kategorie.bezeichnung);
     	
 //    	final TextView txtRPlz = (TextView) view.findViewById(R.id.R_plz);
 //    	txtRPlz.setText(kunde.rechnungsadresse.plz);
