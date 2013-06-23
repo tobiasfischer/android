@@ -16,5 +16,6 @@
     <string name="a_hint_artikelname">Article name</string>
     <string name="a_artikel_not_found">No article found with id %s.</string>
     <string name="a_artikeln_not_found">No article found with lastname %s.</string>
+    <string name="a_daten">Article Data</string>
     
 </resources>
