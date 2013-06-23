@@ -51,7 +51,7 @@ public class ArtikelDaten extends Fragment implements OnTouchListener {
     }
 	
 	private void fillValues(View view) {
-		final TextView txtId = (TextView) view.findViewById(R.id.artikel_id);
+		final TextView txtId = (TextView) view.findViewById(R.id.ben);
     	txtId.setText(artikel.id.toString());
     	
     	final TextView txtName = (TextView) view.findViewById(R.id.artikel_name);
@@ -95,22 +95,22 @@ public class ArtikelDaten extends Fragment implements OnTouchListener {
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
 		switch (item.getItemId()) {
-//			case R.id.edit:
-//				// Evtl. vorhandene Tabs der ACTIVITY loeschen
-//		    	getActivity().getActionBar().removeAllTabs();
-//		    	
-//				final Bundle args = new Bundle(1);
-//				args.putSerializable(KUNDE_KEY, kunde);
-//				
-//				final Fragment neuesFragment = new KundeEdit();
-//				neuesFragment.setArguments(args);
-//				
-//				// Kein Name (null) fuer die Transaktion, da die Klasse BackStageEntry nicht verwendet wird
-//				getFragmentManager().beginTransaction()
-//				                    .replace(R.id.details, neuesFragment)
-//				                    .addToBackStack(null)  
-//				                    .commit();
-//				return true;
+			case R.id.edit:
+				// Evtl. vorhandene Tabs der ACTIVITY loeschen
+		    	getActivity().getActionBar().removeAllTabs();
+		    	
+				final Bundle args = new Bundle(1);
+				args.putSerializable(ARTIKEL_KEY, artikel);
+				
+				final Fragment neuesFragment = new ArtikelEdit();
+				neuesFragment.setArguments(args);
+				
+				// Kein Name (null) fuer die Transaktion, da die Klasse BackStageEntry nicht verwendet wird
+				getFragmentManager().beginTransaction()
+				                    .replace(R.id.details, neuesFragment)
+				                    .addToBackStack(null)  
+				                    .commit();
+				return true;
 				
 			case R.id.einstellungen:
 				getFragmentManager().beginTransaction()

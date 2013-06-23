@@ -33,7 +33,8 @@ public class Artikel implements JsonMappable, Serializable {
 			                     .add("name", name)
 			                     .add("beschreibung", beschreibung)
 			                     .add("preis", preis)
-			                     .add("kategorie", kategorie.getJsonBuilderFactory());
+			                     .add("kategorie", kategorie.getJsonBuilderFactory())
+			                     .add("version", version);
 	}
 	
 	@Override
@@ -48,6 +49,7 @@ public class Artikel implements JsonMappable, Serializable {
 		preis = jsonObject.getJsonNumber("preis").bigDecimalValue();
 		kategorie = new Kategorie();
 		kategorie.fromJsonObject(jsonObject.getJsonObject("kategorie"));
+		version = jsonObject.getInt("version");
 	}
 	
 	@Override

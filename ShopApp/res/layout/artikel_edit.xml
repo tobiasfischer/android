@@ -17,10 +17,10 @@
 			
 			<TextView
 			    style="@style/RechteSpalteText"
-				android:id="@+id/ben"
+				android:id="@+id/artikel_id_edt"
 				android:layout_width="match_parent"
 				android:layout_height="wrap_content"
-				android:textIsSelectable="false" />
+				android:textIsSelectable="true"/>
 	
 		</TableRow>
 		
@@ -31,12 +31,13 @@
 				android:layout_height="wrap_content"
 				android:text="@string/a_name" />
 			
-			<TextView
+			<EditText
 			    style="@style/RechteSpalteText"
-				android:id="@+id/artikel_name"
+				android:id="@+id/artikel_name_edt"
 				android:layout_width="match_parent"
 				android:layout_height="wrap_content"
-				android:textIsSelectable="true" />
+				android:inputType="text"
+	            tools:ignore="LabelFor" />
 	
 		</TableRow>
 		
@@ -47,12 +48,13 @@
 	            android:layout_height="wrap_content"
 	            android:text="@string/a_beschreibung" />
 	        
-	        <TextView
+			<EditText
 	        	style="@style/RechteSpalteText"
-	            android:id="@+id/artikel_beschreibung"
+	            android:id="@+id/artikel_beschreibung_edt"
 	            android:layout_width="match_parent"
 	            android:layout_height="wrap_content"
-	            android:textIsSelectable="false" />
+	            android:inputType="text"
+	            tools:ignore="LabelFor" />
 	
 	    </TableRow>
 	    
@@ -63,12 +65,13 @@
 	            android:layout_height="wrap_content"
 	            android:text="@string/a_preis" />
 	        
-	        <TextView
+			<EditText
 	        	style="@style/RechteSpalteText"
-	            android:id="@+id/artikel_preis"
+	            android:id="@+id/artikel_preis_edt"
 	            android:layout_width="match_parent"
 	            android:layout_height="wrap_content"
-	            android:textIsSelectable="true" />
+	            android:inputType="text"
+	            tools:ignore="LabelFor" />
 	
 	    </TableRow>
 	    
@@ -85,11 +88,10 @@
 	    		
 		        <TextView
 		            style="@style/RechteSpalteText"
-		            android:id="@+id/artikel_kategorie_bezeichnung"
+		            android:id="@+id/artikel_kategorie_bezeichnung_edt"
 		            android:layout_width="wrap_content"
-		            android:layout_height="wrap_content"
-		            android:textIsSelectable="false" />
-		        
+		            android:textIsSelectable="true"
+		            android:layout_height="wrap_content"/>
 			        
 	        </RelativeLayout>
 	
