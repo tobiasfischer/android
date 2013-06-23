@@ -13,7 +13,7 @@
     <string name="a_preis">Price</string>
     <string name="a_seit">Since</string>
     <string name="a_artikeln_liste_title">Artikel</string>
-    <string name="a_hint_kundenname">Article name</string>
+    <string name="a_hint_artikelname">Article name</string>
     <string name="a_artikel_not_found">No article found with id %s.</string>
     <string name="a_artikeln_not_found">No article found with lastname %s.</string>
     

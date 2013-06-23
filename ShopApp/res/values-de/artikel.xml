@@ -1,20 +1,20 @@
 <resources>
 
-	<string name="a_artikel_id_auswahl_hint">Select a article no.</string>
-	<string name="a_artikel_id_hint">Enter article no.</string>
-	<string name="a_artikelnnr_fehlt">The article no. is missing.</string>
-	<string name="a_artikel_id">Article No.</string>
+	<string name="a_artikel_id_auswahl_hint">Artikelnr. auswählen</string>
+	<string name="a_artikel_id_hint">Artikelnr. eingeben</string>
+	<string name="a_artikelnnr_fehlt">Die Artikelnr. fehlt</string>
+	<string name="a_artikel_id">Artikel No.</string>
     <string name="a_name">Name</string>
-    <string name="a_name_hint">Enter the name</string>
-    <string name="a_name_auswahl_hint">Select a name</string>
-    <string name="a_name_fehlt">The name is missing.</string>
-    <string name="a_beschreibung">Description</string>
-    <string name="a_kategorie">Category</string>
-    <string name="a_preis">Price</string>
-    <string name="a_seit">Since</string>
+    <string name="a_name_hint">Name eingeben</string>
+    <string name="a_name_auswahl_hint">Name auswählen</string>
+    <string name="a_name_fehlt">Der Name fehlt.</string>
+    <string name="a_beschreibung">Beschreibung</string>
+    <string name="a_kategorie">Kategorie</string>
+    <string name="a_preis">Preis</string>
+    <string name="a_seit">Seit</string>
     <string name="a_artikeln_liste_title">Artikel</string>
-    <string name="a_hint_kundenname">Article name</string>
-    <string name="a_artikel_not_found">No article found with id %s.</string>
-    <string name="a_artikeln_not_found">No article found with lastname %s.</string>
+    <string name="a_hint_artikelname">Artikelname</string>
+    <string name="a_artikel_not_found">Keinen Artikel mit der Id %s gefunden.</string>
+    <string name="a_artikeln_not_found">Kein Artikel mit dem Namen %s gefunden.</string>
     
 </resources>
