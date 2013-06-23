@@ -3,6 +3,7 @@ package de.shop.ui.main;
 import static android.widget.Toast.LENGTH_LONG;
 import static de.shop.ui.main.Prefs.mock;
 import static de.shop.util.Constants.KUNDE_KEY;
+import static de.shop.util.Constants.ARTIKEL_KEY;
 import android.app.Activity;
 import android.app.Fragment;
 import android.content.ComponentName;
@@ -17,11 +18,13 @@ import de.shop.R;
 import de.shop.service.ArtikelService;
 import de.shop.service.ArtikelService.ArtikelServiceBinder;
 import de.shop.data.Kunde;
+import de.shop.data.Artikel;
 import de.shop.service.BestellungService;
 import de.shop.service.KundeService;
 import de.shop.service.BestellungService.BestellungServiceBinder;
 import de.shop.service.KundeService.KundeServiceBinder;
 import de.shop.ui.kunde.KundeDetails;
+import de.shop.ui.artikel.ArtikelDetails;
 
 public class Main extends Activity {
 	private static final String LOG_TAG = Main.class.getSimpleName();
@@ -90,6 +93,7 @@ public class Main extends Activity {
         //TODO Abgrenzung für Artikel?
         else {
 	        final Kunde kunde = (Kunde) extras.get(KUNDE_KEY);
+	        final Artikel artikel = (Artikel) extras.get(ARTIKEL_KEY);
 	        if (kunde != null) {
 	        	Log.d(LOG_TAG, kunde.toString());
 	        	
@@ -97,6 +101,15 @@ public class Main extends Activity {
 	    		args.putSerializable(KUNDE_KEY, kunde);
 	    		
 	        	detailsFragment = new KundeDetails();
+	        	detailsFragment.setArguments(args);
+	        }
+	        if (artikel != null) {
+	        	Log.d(LOG_TAG, artikel.toString());
+	        	
+	    		final Bundle args = new Bundle(1);
+	    		args.putSerializable(ARTIKEL_KEY, artikel);
+	    		
+	        	detailsFragment = new ArtikelDetails();
 	        	detailsFragment.setArguments(args);
 	        }
         }
