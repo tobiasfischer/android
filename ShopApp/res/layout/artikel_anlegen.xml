@@ -1,0 +1,88 @@
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+	xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".ui.main.Main" >
+	
+<TableLayout
+	    android:layout_width="match_parent"
+		android:layout_height="wrap_content" >	
+		
+		<TableRow>
+	
+			<TextView
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:text="@string/a_name" />
+			
+			<EditText
+			    style="@style/RechteSpalteText"
+				android:id="@+id/artikel_name_crt"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:inputType="text"
+	            tools:ignore="LabelFor" />
+	
+		</TableRow>
+		
+		<TableRow>
+		
+	        <TextView
+	            android:layout_width="match_parent"
+	            android:layout_height="wrap_content"
+	            android:text="@string/a_beschreibung" />
+	        
+			<EditText
+	        	style="@style/RechteSpalteText"
+	            android:id="@+id/artikel_beschreibung_edt"
+	            android:layout_width="match_parent"
+	            android:layout_height="wrap_content"
+	            android:inputType="text"
+	            tools:ignore="LabelFor" />
+	
+	    </TableRow>
+	    
+	    <TableRow>
+	
+	        <TextView
+	            android:layout_width="match_parent"
+	            android:layout_height="wrap_content"
+	            android:text="@string/a_preis" />
+	        
+			<EditText
+	        	style="@style/RechteSpalteText"
+	            android:id="@+id/artikel_preis_crt"
+	            android:layout_width="match_parent"
+	            android:layout_height="wrap_content"
+	            android:inputType="text"
+	            tools:ignore="LabelFor" />
+	
+	    </TableRow>
+	    
+	    <TableRow>
+	
+	        <TextView
+	            android:layout_width="match_parent"
+	            android:layout_height="wrap_content"
+	            android:text="@string/a_kategorie" />
+	        
+	       <RelativeLayout
+	        	android:layout_width="match_parent"
+	    		android:layout_height="wrap_content">
+	    		
+		        <TextView
+		            style="@style/RechteSpalteText"
+		            android:id="@+id/artikel_kategorie_bezeichnung_crt"
+		            android:layout_width="wrap_content"
+		            android:textIsSelectable="true"
+		            android:layout_height="wrap_content"/>
+			        
+	        </RelativeLayout>
+	
+	    </TableRow>
+	
+	</TableLayout>
+
+
+</ScrollView>
