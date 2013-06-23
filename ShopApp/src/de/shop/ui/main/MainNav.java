@@ -20,6 +20,7 @@ import android.widget.PopupMenu;
 import android.widget.PopupMenu.OnMenuItemClickListener;
 import android.widget.SimpleAdapter;
 import de.shop.R;
+import de.shop.ui.artikel.ArtikelAnlegen;
 import de.shop.ui.artikel.ArtikelSucheId;
 //import de.shop.ui.kunde.KundeDelete;
 import de.shop.ui.kunde.KundeSucheId;
@@ -156,7 +157,11 @@ public class MainNav extends ListFragment implements OnItemClickListener, OnMenu
 			case R.id.artikels_suche_id:
 				neuesFragment = new ArtikelSucheId();
 				break;	
-
+				
+			case R.id.artikel_anlegen:
+				neuesFragment = new ArtikelAnlegen();
+				break;	
+				
 			default:
 				return false;
 		}
