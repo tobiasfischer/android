@@ -14,6 +14,7 @@
 	<string name="s_action_suchen_short">Suchen</string>
 	<string name="s_kunden_suche_nachname">Suche mit Nachname</string>
 	<string name="s_artikel_suche_name">Suche mit Name</string>
+	<string name="s_artikel_anlegen">Artikel anlegen</string>
 	<string name="s_kunden_delete">Kunde löschen</string>
 	<string name="s_neu_anlegen">Neu anlegen</string>
     <string name="s_btn_suchen">Suchen</string>
