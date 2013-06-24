@@ -9,7 +9,10 @@
 	    android:layout_width="match_parent"
 		android:layout_height="wrap_content" >	
 		
-		<TableRow>
+		<TableRow
+			android:layout_width="match_parent"
+			android:layout_height="match_parent" >
+
 	
 			<TextView
 				android:layout_width="match_parent"
@@ -17,12 +20,11 @@
 				android:text="@string/a_name" />
 			
 			<EditText
-			    style="@style/RechteSpalteText"
 				android:id="@+id/artikel_name_crt"
-				android:layout_width="match_parent"
-				android:layout_height="wrap_content"
+				style="@style/RechteSpalteText"
 				android:inputType="text"
-	            tools:ignore="LabelFor" />
+				android:minEms="6"
+				tools:ignore="LabelFor" />
 	
 		</TableRow>
 		
