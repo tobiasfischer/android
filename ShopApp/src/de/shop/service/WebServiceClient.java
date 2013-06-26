@@ -407,6 +407,7 @@ final class WebServiceClient {
 				httpConnection = auth(httpConnection);
 
 				writer = new BufferedWriter(new OutputStreamWriter(httpConnection.getOutputStream()));
+				Log.i("PostJson", "jsonMappable: " + jsonMappable );
 				writer.write(jsonMappable.toJsonObject().toString());
 			}
 			finally {
@@ -453,6 +454,7 @@ final class WebServiceClient {
 				httpConnection.disconnect();
 			}
 		}
+		
 		
 		// ID aus "location" extrahieren
 		final int lastSlash = location.lastIndexOf("/");
