@@ -12,6 +12,8 @@
     <string name="k_kategorie">Category</string>
     <string name="k_email">Email</string>
     <string name="k_adresse">Address</string>
+    <string name="k_lieferadresse">Delivery Address</string>
+    <string name="k_rechnungsadresse">Billing Address</string>
     <string name="k_plz">Zip</string>
     <string name="k_ort">City</string>
     <string name="k_strasse">Street</string>
