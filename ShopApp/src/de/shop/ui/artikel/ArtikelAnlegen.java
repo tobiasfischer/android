@@ -3,6 +3,7 @@ package de.shop.ui.artikel;
 import static de.shop.util.Constants.ARTIKEL_KEY;
 import static java.lang.annotation.RetentionPolicy.valueOf;
 import static java.net.HttpURLConnection.HTTP_CONFLICT;
+import static java.net.HttpURLConnection.HTTP_CREATED;
 import static java.net.HttpURLConnection.HTTP_FORBIDDEN;
 import static java.net.HttpURLConnection.HTTP_NO_CONTENT;
 import static java.net.HttpURLConnection.HTTP_OK;
@@ -24,6 +25,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
+import android.widget.TextView;
 import de.shop.R;
 import de.shop.data.Artikel;
 import de.shop.data.Kategorie;
@@ -52,8 +54,11 @@ public class ArtikelAnlegen extends Fragment {
 	
 	@Override
 	public void onViewCreated(View view, Bundle savedInstanceState) {
-	
-    	
+		
+    	crtName = (EditText) view.findViewById(R.id.artikel_name_crt);
+    	crtBeschreibung = (EditText) view.findViewById(R.id.artikel_beschreibung_crt);
+    	crtPreis = (EditText) view.findViewById(R.id.artikel_preis_crt);
+		
 	    // Evtl. vorhandene Tabs der ACTIVITY loeschen
     	final ActionBar actionBar = getActivity().getActionBar();
     	actionBar.setDisplayShowTitleEnabled(true);
@@ -91,7 +96,8 @@ public class ArtikelAnlegen extends Fragment {
 			
 			final HttpResponse<Artikel> result = artikelServiceBinder.createArtikel(artikel, activity);
 			final int statuscode = result.responseCode;
-			if (statuscode != HTTP_NO_CONTENT && statuscode != HTTP_OK) {
+			Log.i("ArtikelAnlegen", "Statuscode: " + statuscode);
+			if (statuscode != HTTP_NO_CONTENT && statuscode != HTTP_OK && statuscode != HTTP_CREATED) {
 				String msg = null;
 				switch (statuscode) {
 					case HTTP_CONFLICT:
@@ -117,8 +123,9 @@ public class ArtikelAnlegen extends Fragment {
 	    		return true;
 			}
 			
-			artikel = result.resultObject;  // ggf. erhoehte Versionsnr. bzgl. konkurrierender Updates
-			
+			//Artikel ID mit der von Hibernate erzeugten ID füllen
+			artikel.id = Long.valueOf(result.content);
+ 
 			// Gibt es in der Navigationsleiste eine KundenListe? Wenn ja: Refresh mit geaendertem Kunde-Objekt
 			final Fragment fragment = getFragmentManager().findFragmentById(R.id.kunden_liste_nav);
 			if (fragment != null) {
@@ -155,12 +162,11 @@ public class ArtikelAnlegen extends Fragment {
 		Kategorie kategorie = new Kategorie();
 		kategorie.id = (long) 500;
 		kategorie.bezeichnung = "Herren";
-//		artikel.name = crtName.getText().toString();
-//		artikel.beschreibung = crtBeschreibung.getText().toString();
-//		artikel.preis = new BigDecimal(crtPreis.getText().toString());
-		artikel.name = "test";
-		artikel.beschreibung = "test";
-		artikel.preis = new BigDecimal(19);
+
+		artikel.name = crtName.getText().toString();
+		artikel.beschreibung = crtBeschreibung.getText().toString();
+		artikel.preis = new BigDecimal(crtPreis.getText().toString());
+		artikel.id = (long) 0;
 		artikel.kategorie = kategorie;
 //
 		Log.d(LOG_TAG, artikel.toString());

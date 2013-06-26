@@ -37,7 +37,7 @@
 	        
 			<EditText
 	        	style="@style/RechteSpalteText"
-	            android:id="@+id/artikel_beschreibung_edt"
+	            android:id="@+id/artikel_beschreibung_crt"
 	            android:layout_width="match_parent"
 	            android:layout_height="wrap_content"
 	            android:inputType="text"
