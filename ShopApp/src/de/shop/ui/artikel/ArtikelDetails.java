@@ -2,7 +2,6 @@ package de.shop.ui.artikel;
 
 import static android.app.ActionBar.NAVIGATION_MODE_TABS;
 import static de.shop.util.Constants.ARTIKEL_KEY;
-import static de.shop.util.Constants.KUNDE_KEY;
 import android.app.ActionBar;
 import android.app.Activity;
 import android.app.Fragment;

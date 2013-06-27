@@ -1,7 +1,6 @@
 package de.shop.ui.artikel;
 
 import static de.shop.util.Constants.ARTIKEL_KEY;
-import static java.lang.annotation.RetentionPolicy.valueOf;
 import static java.net.HttpURLConnection.HTTP_CONFLICT;
 import static java.net.HttpURLConnection.HTTP_CREATED;
 import static java.net.HttpURLConnection.HTTP_FORBIDDEN;
@@ -10,6 +9,8 @@ import static java.net.HttpURLConnection.HTTP_OK;
 import static java.net.HttpURLConnection.HTTP_UNAUTHORIZED;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.List;
 
 import android.app.ActionBar;
 import android.app.Activity;
@@ -24,13 +25,15 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
 import android.widget.EditText;
-import android.widget.TextView;
+import android.widget.Spinner;
 import de.shop.R;
 import de.shop.data.Artikel;
 import de.shop.data.Kategorie;
-import de.shop.service.HttpResponse;
 import de.shop.service.ArtikelService.ArtikelServiceBinder;
+import de.shop.service.HttpResponse;
+import de.shop.service.KategorieService.KategorieServiceBinder;
 import de.shop.ui.main.Main;
 import de.shop.ui.main.Prefs;
 
@@ -42,27 +45,57 @@ public class ArtikelAnlegen extends Fragment {
 	private EditText crtName;
 	private EditText crtBeschreibung;
 	private EditText crtPreis;
+	private List<Kategorie> kategorien;
+	
+	private Spinner spKategorie;
 
 	
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 		setHasOptionsMenu(true);
 		// attachToRoot = false, weil die Verwaltung des Fragments durch die Activity erfolgt
-		//TODO Texte anpassen
 		return inflater.inflate(R.layout.artikel_anlegen, container, false);
 	}
 	
 	@Override
 	public void onViewCreated(View view, Bundle savedInstanceState) {
-		
+
+	    // Evtl. vorhandene Tabs der ACTIVITY loeschen
+    	final ActionBar actionBar = getActivity().getActionBar();
+    	actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_LIST);
+    	actionBar.setDisplayShowTitleEnabled(true);
+    	actionBar.removeAllTabs();
+    	
+    	
     	crtName = (EditText) view.findViewById(R.id.artikel_name_crt);
     	crtBeschreibung = (EditText) view.findViewById(R.id.artikel_beschreibung_crt);
     	crtPreis = (EditText) view.findViewById(R.id.artikel_preis_crt);
+    	
+    	
+		final Activity activity = getActivity();
+		KategorieServiceBinder kategorieServiceBinder;
+		final Main main = (Main) activity;
+		kategorieServiceBinder = main.getKategorieServiceBinder();
 		
-	    // Evtl. vorhandene Tabs der ACTIVITY loeschen
-    	final ActionBar actionBar = getActivity().getActionBar();
-    	actionBar.setDisplayShowTitleEnabled(true);
-    	actionBar.removeAllTabs();
+
+    	//Spinner für Kategorie
+		spKategorie = (Spinner) view.findViewById(R.id.artikel_kategorie_spinner);
+    	
+    	List<String> kategorienBez = new ArrayList<String>();
+    	
+    	kategorien = kategorieServiceBinder.getAllKategorien(getActivity()).resultList;
+    	
+    	for (Kategorie k : kategorien) {
+			kategorienBez.add(k.bezeichnung);
+		}
+    	kategorienBez.add("test");
+
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(getActivity(),
+                android.R.layout.simple_spinner_item, kategorienBez);
+    	
+        spKategorie.setAdapter(adapter);
+
+    	
     }
 	
 	@Override
@@ -160,17 +193,26 @@ public class ArtikelAnlegen extends Fragment {
 	private void setArtikel() {
 		artikel = new Artikel();
 		Kategorie kategorie = new Kategorie();
-		kategorie.id = (long) 500;
-		kategorie.bezeichnung = "Herren";
+		kategorie.id = (long) 0;
+		kategorie.bezeichnung = "Leere Kategorie";
 
 		artikel.name = crtName.getText().toString();
 		artikel.beschreibung = crtBeschreibung.getText().toString();
 		artikel.preis = new BigDecimal(crtPreis.getText().toString());
 		artikel.id = (long) 0;
+
+		
+		for (Kategorie k : kategorien) {
+			if (k.bezeichnung == spKategorie.getSelectedItem()) {
+				kategorie = k;
+			}
+		}
+		
 		artikel.kategorie = kategorie;
 //
 		Log.d(LOG_TAG, artikel.toString());
 	}
+	
 	
 	
 }

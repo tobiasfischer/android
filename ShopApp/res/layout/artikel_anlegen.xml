@@ -61,29 +61,21 @@
 	            tools:ignore="LabelFor" />
 	
 	    </TableRow>
+
 	    
 	    <TableRow>
-	
-	        <TextView
-	            android:layout_width="match_parent"
-	            android:layout_height="wrap_content"
-	            android:text="@string/a_kategorie" />
-	        
-	       <RelativeLayout
-	        	android:layout_width="match_parent"
-	    		android:layout_height="wrap_content">
-	    		
-		        <TextView
-		            style="@style/RechteSpalteText"
-		            android:id="@+id/artikel_kategorie_bezeichnung_crt"
-		            android:layout_width="wrap_content"
-		            android:textIsSelectable="true"
-		            android:layout_height="wrap_content"/>
-			        
-	        </RelativeLayout>
-	
-	    </TableRow>
-	
+
+	    	<TextView
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:text="@string/a_kategorie" />
+	    	
+		    <Spinner
+		    	android:id="@+id/artikel_kategorie_spinner"
+		    	android:layout_width="match_parent"
+		    	android:layout_height="wrap_content"/>
+
+	</TableRow>
 	</TableLayout>
 
 

@@ -5,7 +5,6 @@ import static de.shop.ui.main.Prefs.mock;
 import static de.shop.ui.main.Prefs.timeout;
 import static de.shop.util.Constants.ARTIKEL_PATH;
 import static de.shop.util.Constants.ARTIKEL_ID_PREFIX_PATH;
-import static de.shop.util.Constants.KUNDEN_PATH;
 import static java.net.HttpURLConnection.HTTP_NO_CONTENT;
 import static java.net.HttpURLConnection.HTTP_OK;
 import static java.util.concurrent.TimeUnit.SECONDS;
@@ -22,7 +21,6 @@ import android.os.IBinder;
 import android.util.Log;
 import de.shop.R;
 import de.shop.data.Artikel;
-import de.shop.data.Kunde;
 import de.shop.util.InternalShopError;
 
 public class ArtikelService extends Service {

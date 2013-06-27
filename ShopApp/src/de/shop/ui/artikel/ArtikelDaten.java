@@ -15,7 +15,6 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnTouchListener;
 import android.view.ViewGroup;
-import android.widget.RadioButton;
 import android.widget.TextView;
 import de.shop.R;
 import de.shop.data.Artikel;
