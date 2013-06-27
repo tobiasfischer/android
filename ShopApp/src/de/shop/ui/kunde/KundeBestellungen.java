@@ -180,26 +180,24 @@ public class KundeBestellungen extends Fragment implements OnItemClickListener, 
 		//final String datumStr = bestellung.datum == null ? "" : DateFormat.getDateFormat(getActivity()).format(bestellung.datum);
     	txtBestellungDatum.setText(bestellung.status);
     	
-    	
-	    	final ListView listView = (ListView) view.findViewById(R.id.bestell_pos_liste);
-	
-	        bestellpositionen = bestellung.bestellpositionen;
-			final String[] values = new String[bestellpositionen.size()];
-			for (int i = 0; i < bestellpositionen.size(); i++) {
-				values[i] = getString(R.string.k_kunde_bestell_pos_id, bestellpositionen.get(bestellpositionen.size() - i - 1).id);
-	          	
-	        	Log.d(LOG_TAG, values[i]);
-	        }
-			Log.d(LOG_TAG, "Bestellpos sind gesetzt!!!");
-	        final ArrayAdapter<String> adapter2 = new ArrayAdapter<String>(view.getContext(),
-	        		                                                      android.R.layout.simple_list_item_1,
-	        		                                                      android.R.id.text1,
-	        		                                                      values);
-	        Log.d(LOG_TAG, "Adapter ist gebaut!!!");
-	        // Items in der Liste duerfen angeklickt werden
-		listView.setAdapter(adapter2);
-		 Log.d(LOG_TAG, "Adapter ist gesetzt!!!");
-
-        
+    	final ListView listView = (ListView) view.findViewById(R.id.bestell_pos_liste);
+		
+        bestellpositionen = bestellung.bestellpositionen;
+		final String[] values = new String[bestellpositionen.size()];
+		for (int i = 0; i < bestellpositionen.size(); i++) {
+			values[i] = getString(R.string.k_kunde_bestell_pos_id, bestellpositionen.get(bestellpositionen.size() - i - 1).id);
+          	
+        	Log.d(LOG_TAG, values[i]);
+        }
+		Log.d(LOG_TAG, "Bestellpos sind gesetzt!!!");
+        final ArrayAdapter<String> adapter2 = new ArrayAdapter<String>(view.getContext(),
+        		                                                      android.R.layout.simple_list_item_1,
+        		                                                      values);
+        Log.d(LOG_TAG, "Adapter ist gebaut!!!");
+        // Items in der Liste duerfen angeklickt werden
+        listView.setAdapter(adapter2);
+        listView.setFocusable(false);
+        listView.setClickable(false);
+        Log.d(LOG_TAG, "Adapter ist gesetzt!!!");
 	}
 }
